@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    Neal's App
+{% endblock %}
+
+{% block body %}
+    {% for distro in distros %}
+        {{ distro.distro_name }}
+        {{ distro.distro_logo }}
+    {% endfor %}
+{% endblock %}
