@@ -7,6 +7,9 @@
 {% block body %}
     {% for distro in distros %}
         {{ distro.distro_name }}
-        {{ distro.distro_logo }}
+        <i class="{{ distro.distro_logo }}" aria-hidden="true"></i>
     {% endfor %}
+{% endblock %}
+{% block form %}
+        <h1>{{ form }}</h1>
 {% endblock %}
