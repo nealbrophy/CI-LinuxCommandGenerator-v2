@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    Neal's App
+    List of Distros & Commands
 {% endblock %}
 
-{% block body %}
+{% block content %}
+<ul>
     {% for distro in distros %}
-        {{ distro.distro_name }}
-        <i class="{{ distro.distro_logo }}" aria-hidden="true"></i>
+        <li><i class="{{ distro.distro_logo }}" aria-hidden="true"></i> {{ distro.distro_name }}</li>
+        <ul>
+        {% for command in commands %}
+            {% if command.app_distro == distro.distro_name %}    
+            <li>{{ command.app_name }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>    
     {% endfor %}
-{% endblock %}
-{% block form %}
-        <h1>{{ form }}</h1>
+</ul>
 {% endblock %}
