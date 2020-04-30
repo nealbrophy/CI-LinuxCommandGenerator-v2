@@ -4,12 +4,6 @@
 <h2>Update Command</h2>
 
 <form action="{{ url_for('update_command', command_id=cmd_to_update._id) }}" method="POST">
-    <!-- <br>        
-    <label for="distro_name">New Distro Name</label>
-    <input type="text" id="distro_name">
-    <br>
-    <label for="distro_logo">New Distro Logo</label>
-    <input type="text" id="distro_logo"> -->
     <label for="app_name">App Name</label>
     <input type="text" id="app_name" name="app_name" value="{{ cmd_to_update.app_name }}">
     <br>
@@ -29,7 +23,6 @@
                 <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
             {% endif %}
         {% endfor %}
-        <!-- <option value="new_distro">add new distro</option> -->
     </select>
     <button type="submit">Update</button>
 </form>

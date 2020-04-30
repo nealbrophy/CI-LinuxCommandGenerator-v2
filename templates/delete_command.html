@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Delete Command</h2>
+
+<p>Are you sure you want to delete this command?</p>
+<form action="{{ url_for('update_command', command_id=cmd_to_delete._id) }}" method="POST">
+    <label for="app_name">App Name</label>
+    <input type="text" id="app_name" name="app_name" value="{{ cmd_to_delete.app_name }}" disabled>
+    <br>
+    <label for="app_instruction">App Instructions</label>
+    <input type="text" id="app_instruction" name="app_instruction" value="{{ cmd_to_delete.app_instruction }}" disabled>
+    <br>
+    <label for="app_command">App Command</label>
+    <input type="text" id="app_command" name="app_command" value="{{ cmd_to_delete.app_command }}" disabled>
+    <br>
+    <label for="app_distro">Distro</label>
+    <select id="app_distro" name="app_distro">
+        <option value="" disabled selected>Select distro</option>
+        {% for distro in distros %}
+            {% if distro.distro_name == cmd_to_delete.app_distro %}
+                <option value="{{ distro.distro_name }}" selected disabled>{{ distro.distro_name }}</option>
+            {% else %}
+                <option value="{{ distro.distro_name }}"disabled >{{ distro.distro_name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit">Delete</button><a href="{{ url_for('find_command') }}">Cancel</button>
+</form>
+{% endblock %}

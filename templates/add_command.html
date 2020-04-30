@@ -4,23 +4,17 @@
 <h2>Add Command</h2>
 
 <form action="{{ url_for('insert_command') }}" method="POST">
-    <!-- <br>        
-    <label for="distro_name">New Distro Name</label>
-    <input type="text" id="distro_name">
-    <br>
-    <label for="distro_logo">New Distro Logo</label>
-    <input type="text" id="distro_logo"> -->
     <label for="app_name">App Name</label>
-    <input type="text" id="app_name" name="app_name">
+    <input type="text" id="app_name" name="app_name" required>
     <br>
     <label for="app_instruction">App Instructions</label>
-    <input type="text" id="app_instruction" name="app_instruction">
+    <input type="text" id="app_instruction" name="app_instruction" required>
     <br>
     <label for="app_command">App Command</label>
-    <input type="text" id="app_command" name="app_command">
+    <input type="text" id="app_command" name="app_command" required>
     <br>
     <label for="app_distro">Distro</label>
-    <select id="app_distro" name="app_distro">
+    <select id="app_distro" name="app_distro" required>
         <option value="" disabled selected>Select distro</option>
         {% for distro in distros %}
             <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>

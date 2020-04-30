@@ -30,30 +30,50 @@ def add_command():
 @app.route('/insert_command', methods=['POST'])
 def insert_command():
     # pdb.set_trace()
-    find_app = request.form.get('app_name')
-    find_distro = request.form.get('app_distro')
+    add_app = request.form.get('app_name')
+    add_distro = request.form.get('app_distro')
     existing_cmds = mongo.db.commands.find()
-    for commands in existing_cmds:
-      if commands['app_name'] == find_app and commands['app_distro'] == find_distro:
-        return render_template('find_command.html', req_type='insert_fail',
-          results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}),
-          distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
-      else:
-        commands = mongo.db.commands
-        commands.insert_one(request.form.to_dict())
-        return render_template('distros.html', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+    if existing_cmds.retrieved:
+      for commands in existing_cmds:
+        if commands['app_name'] == add_app and commands['app_distro'] == add_distro:
+          return render_template('find_command.html', req_type='insert_fail',
+            results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}),
+            distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+    else:
+      commands = mongo.db.commands
+      commands.insert_one(request.form.to_dict())
+      return render_template('find_command.html', req_type='insert_success',
+        results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
+        distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+          
 
 # FIND COMMAND VIEW
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
+  # pdb.set_trace()
   if request.method == 'GET':
     return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find())
   else:
-    find_app = request.form.get('app_name')
-    find_distro = request.form.get('app_distro')
-    return render_template('find_command.html', req_type='find', 
-      distros=mongo.db.distros.find(),
-      results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}))
+    if request.form.get('app_name') and request.form.get('app_distro'):
+      find_app = request.form.get('app_name')
+      find_distro = request.form.get('app_distro')
+      return render_template('find_command.html', req_type='find', 
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}))
+    elif request.form.get('app_name'):
+      find_app = request.form.get('app_name')
+      return render_template('find_command.html', req_type='find', 
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}}))
+    elif request.form.get('app_distro'):
+      find_distro = request.form.get('app_distro')
+      return render_template('find_command.html', req_type='find', 
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_distro': find_distro}))
+    else:
+      return render_template('find_command.html', req_type='empty', 
+        distros=mongo.db.distros.find())
+
 
 # EDIT COMMAND VIEW
 @app.route('/edit/<command_id>')
@@ -79,12 +99,9 @@ def update_command(command_id):
 
 @app.route('/confirm_delete/<command_id>')
 def confirm_delete(command_id):
-  return """
-  <h2>Confirm Deletion</h2>
-  <p>Are you sure you want to delete this command?</p>
-  <button>Confirm</button>
-  <button>Cancel</button>
-  """
+  cmd_to_delete = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
+  return render_template('delete_command.html', cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
+          distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 # DELETE COMMAND VIEW
 @app.route('/delete/<command_id>')
