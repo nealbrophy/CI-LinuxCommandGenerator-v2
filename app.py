@@ -8,11 +8,11 @@ from bson.objectid import ObjectId
 import pdb
 
 app = Flask(__name__)
-
 app.config["MONGO_DBNAME"] = 'linuxCmdGen'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
-
 mongo = PyMongo(app)
+
+my_list = {}
 
 # HOME VIEW
 @app.route('/')
@@ -21,12 +21,16 @@ def get_distros():
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
+# ===============
+# CRUD Operations
+# ===============
+
 # ADD COMMANDS VIEW
 @app.route('/add')
 def add_command():
     return render_template('add_command.html', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-# INSERT COMMAND ACTION FROM ADD COMMAND VIEW
+# insert command action from ADD COMMAND VIEW
 @app.route('/insert_command', methods=['POST'])
 def insert_command():
     # pdb.set_trace()
@@ -46,7 +50,6 @@ def insert_command():
         results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
         distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
           
-
 # FIND COMMAND VIEW
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
@@ -82,7 +85,7 @@ def edit_command(command_id):
   distros = mongo.db.distros.find()
   return render_template('edit_command.html', cmd_to_update=cmd_to_update, distros=distros)
 
-# UPDATE COMMAND ACTION FROM EDIT VIEW
+# update command action FROM EDIT VIEW
 @app.route('/update/<command_id>', methods=['POST'])
 def update_command(command_id):
   commands = mongo.db.commands
@@ -97,6 +100,7 @@ def update_command(command_id):
           results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
+# confirm delete action from DELETE COMMAND VIEW
 @app.route('/confirm_delete/<command_id>')
 def confirm_delete(command_id):
   cmd_to_delete = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
@@ -104,12 +108,35 @@ def confirm_delete(command_id):
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 # DELETE COMMAND VIEW
-@app.route('/delete/<command_id>')
+@app.route('/delete/<command_id>', methods=['POST'])
 def delete_command(command_id):
   mongo.db.commands.remove({'_id': ObjectId(command_id)})
-  return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find())
+  return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 
+
+# ===============
+# Custom Operations
+# ===============
+
+# ADD TO LIST VIEW
+@app.route('/add_to_list/<command_id>')
+def add_to_list(command_id):
+  # pdb.set_trace()
+  cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
+  if cmd_to_save['app_name'] in my_list:
+    return 'app already in list'
+  else:
+    my_list[cmd_to_save['app_name']] = {'instructions': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    return redirect(url_for('my_list_func', my_list=my_list))
+  
+# MY LIST VIEW
+@app.route('/my_list')
+def my_list_func():
+  return render_template('my_list.html', my_list=my_list)
+
+# UPLOAD COMMANDS
+# @app.route()
 
 
 

@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
 
-{% block head %}
-    List of Distros & Commands
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<ul>
-    {% for distro in distros %}
-        <li><i class="{{ distro.distro_logo }}" aria-hidden="true"></i> {{ distro.distro_name }}</li>
-        <ul>
+<h2>List of Distros & Commands</h2>
+
+{% for distro in distros %}
+<div class="card float-left" style="width: 18rem;" id="card_{{ distro._id }}">
+    <img src="..." class="card-img-top" alt="">
+    <div class="card-body">
+        <h5><i class="{{ distro.distro_logo }}" aria-hidden="true"></i> {{ distro.distro_name }}</h5>
+        <p class="card-text">Info about distro</p>
+    </div>
+    <!-- <ul class="list-group list-group-flush">
         {% for command in commands %}
-            {% if command.app_distro == distro.distro_name %}    
-            <li>{{ command.app_name }}</li>
-            {% endif %}
+        {% if command.app_distro == distro.distro_name %}
+        <li class="list-group-item">{{ command.app_name }}</li>
+        {% endif %}
         {% endfor %}
-        </ul>    
-    {% endfor %}
-</ul>
+    </ul> -->
+    <div class="card-body">
+        <a href="" class="card-link">View Commands</a>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

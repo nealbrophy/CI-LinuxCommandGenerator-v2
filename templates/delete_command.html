@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-
+{% block title %}Delete{% endblock %}
 {% block content %}
 <h2>Delete Command</h2>
 
 <p>Are you sure you want to delete this command?</p>
-<form action="{{ url_for('update_command', command_id=cmd_to_delete._id) }}" method="POST">
+<form action="{{ url_for('delete_command', command_id=cmd_to_delete._id) }}" method="POST">
     <label for="app_name">App Name</label>
     <input type="text" id="app_name" name="app_name" value="{{ cmd_to_delete.app_name }}" disabled>
     <br>

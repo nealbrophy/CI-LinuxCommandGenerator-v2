@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}My List{% endblock %}
+{% block content %}
+<h3>My List</h3>
+    {% if my_list %}
+        {% for key, value in my_list.items() %}
+            <div class="my_list">
+                <strong>{{ key }}:</strong> {{ value }}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't saved any commands yet</p>
+    {% endif %}
+{% endblock %}
