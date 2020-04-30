@@ -37,7 +37,7 @@ def insert_command():
       for commands in existing_cmds:
         if commands['app_name'] == add_app and commands['app_distro'] == add_distro:
           return render_template('find_command.html', req_type='insert_fail',
-            results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}),
+            results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
             distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
       commands = mongo.db.commands
