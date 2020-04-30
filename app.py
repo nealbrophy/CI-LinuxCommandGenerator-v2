@@ -21,6 +21,12 @@ def get_distros():
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
+@app.route('/distro_cmds/<distro_name>', methods=['GET', 'POST'])
+def get_distro_cmds(distro_name):
+  return render_template('find_command.html', req_type='find', 
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_distro': distro_name}))
+
 # ===============
 # CRUD Operations
 # ===============

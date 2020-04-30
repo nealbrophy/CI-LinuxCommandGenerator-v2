@@ -20,7 +20,7 @@
         {% endfor %}
     </ul> -->
     <div class="card-body">
-        <a href="" class="card-link">View Commands</a>
+        <a href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}" class="card-link">View Commands</a>
     </div>
 </div>
 {% endfor %}
