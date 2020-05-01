@@ -28,12 +28,13 @@
 {% elif req_type == 'update' %}
 <p>[command updated]</p>
 {% endif %}
-<div class="card">
+<div class="card mb-3">
     <div class="card-body">
         <h4 class="card-title">{{ apps['app_name'] }}</h4>
         <h5 class="card-subtitle mb-2 text-muted">Distro: {{ apps['app_distro'] }}</h5>
         <p class="card-text"><strong>Instructions:</strong> {{ apps['app_instruction'] }}</p>
-        <p class="card-text"><strong>Command:</strong> {{ apps['app_command'] }}</p>
+        <p class="card-text"><strong>Command:</strong> {{ apps['app_command'] }} <a class=""
+            href="{{ url_for('copy_command', command_id=apps['_id']) }}"><i class="far fa-copy"></i></a></p>
         <a class="card-link" href="{{ url_for('edit_command', command_id=apps._id) }}">Edit</a>
         <a class="card-link" href="{{ url_for('confirm_delete', command_id=apps._id) }}">Delete</a>
         <a class="card-link" href="{{ url_for('add_to_list', command_id=apps._id) }}">Add to MyList</a>

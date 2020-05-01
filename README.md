@@ -7,7 +7,7 @@ Code Institute Milestone 3 - Data Centric Development
 <!-- INSERT GIFs -->
 
 ### Technologies used
-- Python, Flask, PyMongo, DNSPython
+- Python, Flask, PyMongo, DNSPython, Pyperclip
 - MongoDB
 - Bootstrap/Materialize
 - HTML, CSS, JS

@@ -5,7 +5,9 @@ if path.exists("env.py"):
 from flask import Flask, render_template, redirect, request, url_for, abort
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import pyperclip
 import pdb
+
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'linuxCmdGen'
@@ -132,7 +134,7 @@ def delete_command(command_id):
   return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 # ==================
-# My List Operations
+# MY LIST Operations
 # ==================
 
 # ADD TO LIST VIEW
@@ -145,7 +147,6 @@ def add_to_list(command_id):
     return 'app already in list'
   else:
     my_list[cmd_to_save['app_name']] = {'id': cmd_to_save['_id'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
-    # {'command_id': cmd_to_save['_id'], 'app_name': cmd_to_save['app_name'], 'app_distro': cmd_to_save['app_distro'], 'app_instruction': cmd_to_save['app_instruction'], 'app_command': cmd_to_save['app_command']}
     return redirect(url_for('my_list_func'))
   
 # MY LIST VIEW
@@ -158,12 +159,14 @@ def my_list_func():
 def remove_from_list(command_id):
  return 'something'
 
-# ===============
-# other Operations
-# ===============
+# ======================
+# COPY COMMAND operation
+# ======================
 @app.route('/copy_command/<command_id>')
 def copy_command(command_id):
-  return command_id
+  cmd_to_copy = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
+  pyperclip.copy(cmd_to_copy['app_command'])
+  return 'copied to clipboard'
 
 
 

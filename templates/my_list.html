@@ -6,16 +6,19 @@
 {% if my_list %}
 {% for key, value in my_list.items() %}
 
-<div class="card mb-3" style="width: 50rem;">
+<div class="card mb-3">
     <div class="container">
         <div class="row">
-                <div class="card-body">
+            <div class="col-11">
+                <div class="card-body float-left">
                     <h5 class="card-title">{{ key }} ({{ value['distro'] }})</h5>
                     <p class="card-text"><strong>instruction:</strong> {{ value['instruction'] }}</p>
-                    <p class="card-text"><strong>command:</strong> {{ value['command'] }} <a class="" href="{{ url_for('copy_command', command_id=value['id']) }}"><i class="far fa-copy"></i></a></p>
-                    <a class="btn btn-danger" href=""><i class="fas fa-minus-circle"></i></a>
-                    <a class="btn btn-warning" href="{{ url_for('copy_command', command_id=value['id']) }}"><i class="far fa-copy"></i></a>
+                    <p class="card-text"><strong>command:</strong> {{ value['command'] }} <a class=""
+                            href="{{ url_for('copy_command', command_id=value['id']) }}"><i class="far fa-copy"></i></a>
+                    </p>
+                </div>
             </div>
+            <div class="col-1 float-left"><a href=""><i class="pt-3 pl-lg-5 fas fa-times-circle"></i></a></div>
         </div>
     </div>
 </div>
