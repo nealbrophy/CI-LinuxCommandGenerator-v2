@@ -4,26 +4,33 @@
 <h2>Update Command</h2>
 
 <form action="{{ url_for('update_command', command_id=cmd_to_update._id) }}" method="POST">
-    <label for="app_name">App Name</label>
-    <input type="text" id="app_name" name="app_name" value="{{ cmd_to_update.app_name }}">
-    <br>
-    <label for="app_instruction">App Instructions</label>
-    <input type="text" id="app_instruction" name="app_instruction" value="{{ cmd_to_update.app_instruction }}">
-    <br>
-    <label for="app_command">App Command</label>
-    <input type="text" id="app_command" name="app_command" value="{{ cmd_to_update.app_command }}">
-    <br>
-    <label for="app_distro">Distro</label>
-    <select id="app_distro" name="app_distro">
-        <option value="" disabled selected>Select distro</option>
-        {% for distro in distros %}
+    <div class="form-group">
+        <label for="app_name">App Name</label>
+        <input type="text" class="form-control" id="app_name" name="app_name" value="{{ cmd_to_update.app_name }}">
+        <br>
+        <label for="app_distro">Distro</label>
+        <select id="app_distro" class="form-control" name="app_distro">
+            <option value="" disabled selected>Select distro</option>
+            {% for distro in distros %}
             {% if distro.distro_name == cmd_to_update.app_distro %}
-                <option value="{{ distro.distro_name }}" selected>{{ distro.distro_name }}</option>
+            <option value="{{ distro.distro_name }}" selected>{{ distro.distro_name }}</option>
             {% else %}
-                <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
+            <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
             {% endif %}
-        {% endfor %}
-    </select>
-    <button type="submit">Update</button>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="app_url">URL for file download (if required)</label>
+        <input type="text" class="form-control" id="app_url" name="app_url">
+        <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
+        <br>
+        <label for="app_instruction">App Instructions</label>
+        <input type="text" class="form-control" id="app_instruction" name="app_instruction" value="{{ cmd_to_update.app_instruction }}">
+        <br>
+        <label for="app_command">App Command</label>
+        <input type="text" class="form-control" id="app_command" name="app_command" value="{{ cmd_to_update.app_command }}">
+        <br>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
 </form>
 {% endblock %}

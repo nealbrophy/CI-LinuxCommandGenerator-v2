@@ -3,40 +3,44 @@
 {% block content %}
 <h3>Find Commands</h3>
 <form action="{{ url_for('find_command') }}" method="POST">
-    <label for="app_name">App Name</label>
-    <input type="text" id="app_name" name="app_name">
-    <br>
-    <label for="app_distro">Distro</label>
-    <select id="app_distro" name="app_distro">
-        <option value="" disabled selected>Select distro</option>
-        {% for distro in distros %}
+    <div class="form-group">
+        <label for="app_name">App Name</label>
+        <input type="text" class="form-control" id="app_name" name="app_name">
+        <br>
+        <label for="app_distro">Distro</label>
+        <select id="app_distro" class="form-control" name="app_distro">
+            <option value="" disabled selected>Select distro</option>
+            {% for distro in distros %}
             <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
-        {% endfor %}
-        <!-- <option value="new_distro">add new distro</option> -->
-    </select>
-    <br>
-    <button type="submit">Submit</button>
+            {% endfor %}
+            <!-- <option value="new_distro">add new distro</option> -->
+        </select>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 <hr>
 <h3>Results:</h3>
-    {% if results %}
-        {% for apps in results %}
-            {% if req_type == 'insert_fail' %}
-                <p>[command already exists]</p>
-            {% elif req_type == 'update' %}
-                <p>[command updated]</p>
-            {% endif %}
-            <div class="results">
-                <h4>{{ apps['app_name'] }}</h4>
-                <strong>Distro:</strong> {{ apps['app_distro'] }}
-                <strong>Instructions:</strong> {{ apps['app_instruction'] }}
-                <strong>Command:</strong> {{ apps['app_command'] }}
-                <a href="{{ url_for('edit_command', command_id=apps._id) }}">Edit</a>
-                <a href="{{ url_for('confirm_delete', command_id=apps._id) }}">Delete</a>
-                <a href="{{ url_for('add_to_list', command_id=apps._id) }}">Add to MyList</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <h3>Please enter search parameters above</h3>
-    {% endif %}
+{% if results %}
+{% for apps in results %}
+{% if req_type == 'insert_fail' %}
+<p>[command already exists]</p>
+{% elif req_type == 'update' %}
+<p>[command updated]</p>
+{% endif %}
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ apps['app_name'] }}</h4>
+        <h5 class="card-subtitle mb-2 text-muted">Distro: {{ apps['app_distro'] }}</h5>
+        <p class="card-text"><strong>Instructions:</strong> {{ apps['app_instruction'] }}</p>
+        <p class="card-text"><strong>Command:</strong> {{ apps['app_command'] }}</p>
+        <a class="card-link" href="{{ url_for('edit_command', command_id=apps._id) }}">Edit</a>
+        <a class="card-link" href="{{ url_for('confirm_delete', command_id=apps._id) }}">Delete</a>
+        <a class="card-link" href="{{ url_for('add_to_list', command_id=apps._id) }}">Add to MyList</a>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h3>Please enter search parameters above</h3>
+{% endif %}
 {% endblock %}

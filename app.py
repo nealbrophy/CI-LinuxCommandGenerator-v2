@@ -138,13 +138,14 @@ def delete_command(command_id):
 # ADD TO LIST VIEW
 @app.route('/add_to_list/<command_id>')
 def add_to_list(command_id):
-  # pdb.set_trace()
+  pdb.set_trace()
   cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
-  formatted_name = f"{cmd_to_save['app_name']}_{cmd_to_save['app_distro']}"
+  formatted_name = f"{cmd_to_save['app_name']} ({cmd_to_save['app_distro']})"
   if formatted_name in my_list:
     return 'app already in list'
   else:
-    my_list[formatted_name] = {'instructions': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    my_list[cmd_to_save['app_name']] = {'id': cmd_to_save['_id'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    # {'command_id': cmd_to_save['_id'], 'app_name': cmd_to_save['app_name'], 'app_distro': cmd_to_save['app_distro'], 'app_instruction': cmd_to_save['app_instruction'], 'app_command': cmd_to_save['app_command']}
     return redirect(url_for('my_list_func'))
   
 # MY LIST VIEW
@@ -160,8 +161,9 @@ def remove_from_list(command_id):
 # ===============
 # other Operations
 # ===============
-# UPLOAD COMMANDS
-# @app.route()
+@app.route('/copy_command/<command_id>')
+def copy_command(command_id):
+  return command_id
 
 
 

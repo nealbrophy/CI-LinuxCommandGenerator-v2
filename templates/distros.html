@@ -6,7 +6,8 @@
 <h2>List of Distros & Commands</h2>
 
 {% for distro in distros %}
-<div class="card float-left" style="width: 18rem;" id="card_{{ distro._id }}">
+{% if counter[distro.distro_name] > 0 %}
+<div class="card float-left mr-3 mb-3" style="width: 18rem;" id="card_{{ distro._id }}">
     <img src="..." class="card-img-top" alt="">
     <div class="card-body">
         <h5><i class="{{ distro.distro_logo }}" aria-hidden="true"></i> {{ distro.distro_name }}</h5>
@@ -23,5 +24,6 @@
         <a href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}" class="card-link">View Commands</a>
     </div>
 </div>
+{% endif %}
 {% endfor %}
 {% endblock %}

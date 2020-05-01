@@ -2,31 +2,32 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <h2>Add Command</h2>
-
 <form action="{{ url_for('insert_command') }}" method="POST">
-    <label for="app_name">App Name</label>
-    <input type="text" id="app_name" name="app_name" required>
-    <br>
-    <label for="app_distro">Distro</label>
-    <select id="app_distro" name="app_distro" required>
-        <option value="" disabled selected>Select distro</option>
-        {% for distro in distros %}
+    <div class="form-group">
+        <label for="app_name">App Name</label>
+        <input type="text" class="form-control" id="app_name" name="app_name" required>
+        <br>
+        <label for="app_distro">Distro</label>
+        <select id="app_distro" class="form-control" name="app_distro" required>
+            <option value="" disabled selected>Select distro</option>
+            {% for distro in distros %}
             <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
-        {% endfor %}
-        <!-- <option value="new_distro">add new distro</option> -->
-    </select>
-    <br>
-    <label for="app_url">URL for file download (if required)</label>
-    <input type="text" id="app_url" name="app_url">
-    <br>
-    <label for="app_instruction">App Instructions</label>
-    <input type="text" id="app_instruction" name="app_instruction" required>
-    <br>
-    <label for="app_command">App Command</label>
-    <input type="text" id="app_command" name="app_command" required>
-    <br>
-    
-    
-    <button type="submit">Submit</button>
+            {% endfor %}
+            <!-- <option value="new_distro">add new distro</option> -->
+        </select>
+        <br>
+        <label for="app_url">URL for file download (if required)</label>
+        <input type="text" class="form-control" id="app_url" name="app_url">
+        <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
+        <br>
+        <label for="app_instruction">App Instructions</label>
+        <input type="text" class="form-control" id="app_instruction" name="app_instruction" required value="Enter the below command in terminal">
+        <br>
+        <label for="app_command">App Command</label>
+        <input type="text" class="form-control" id="app_command" name="app_command" required>
+        <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...BE CAREFUL</small>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 {% endblock %}
