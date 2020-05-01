@@ -5,7 +5,11 @@
     {% if my_list %}
         {% for key, value in my_list.items() %}
             <div class="my_list">
-                <strong>{{ key }}:</strong> {{ value }}
+                <strong>{{ key }}:</strong>
+                <br>
+                <strong>instructions:</strong> {{ value['instructions'] }}
+                <br>
+                <strong>command:</strong> {{ value['command'] }}
             </div>
         {% endfor %}
     {% else %}

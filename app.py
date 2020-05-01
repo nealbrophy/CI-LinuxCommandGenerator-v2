@@ -17,7 +17,14 @@ my_list = {}
 # HOME VIEW
 @app.route('/')
 def get_distros():
-    return render_template('distros.html', 
+  distros=mongo.db.distros.find() 
+  distro_counter = []
+  cmd_counter = []
+  for distro in distros:
+    distro_counter.append(distro['distro_name'])
+    cmd_counter.append(mongo.db.commands.count_documents({'app_distro': distro['distro_name']}))
+  counter = {key:value for key, value in zip(distro_counter, cmd_counter)}
+  return render_template('distros.html', counter=counter, 
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
@@ -40,18 +47,24 @@ def add_command():
 @app.route('/insert_command', methods=['POST'])
 def insert_command():
     # pdb.set_trace()
-    add_app = request.form.get('app_name')
+    add_app = request.form.get('app_name').lower().replace(' ', '')
     add_distro = request.form.get('app_distro')
-    existing_cmds = mongo.db.commands.find()
-    if existing_cmds.retrieved:
-      for commands in existing_cmds:
-        if commands['app_name'] == add_app and commands['app_distro'] == add_distro:
-          return render_template('find_command.html', req_type='insert_fail',
-            results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
-            distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+    existing_cmds = mongo.db.commands.count_documents({
+      'app_name': {'$regex': add_app, '$options': 'ix'}, 
+      'app_distro': {'$regex': add_distro, '$options': 'ix'}
+      })
+    if existing_cmds:
+      return render_template('find_command.html', req_type='insert_fail',
+        results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
+        distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
-      commands = mongo.db.commands
-      commands.insert_one(request.form.to_dict())
+      cmd_to_insert = {
+        'app_name': add_app,
+        'app_distro': add_distro,
+        'app_url': request.form.get('app_url'),
+        'app_instruction': request.form.get('app_instruction'),
+        'app_command': request.form.get('app_command')}
+      mongo.db.commands.insert_one(cmd_to_insert)
       return render_template('find_command.html', req_type='insert_success',
         results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
         distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
@@ -64,7 +77,7 @@ def find_command():
     return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find())
   else:
     if request.form.get('app_name') and request.form.get('app_distro'):
-      find_app = request.form.get('app_name')
+      find_app = request.form.get('app_name').replace(' ', '')
       find_distro = request.form.get('app_distro')
       return render_template('find_command.html', req_type='find', 
         distros=mongo.db.distros.find(),
@@ -82,7 +95,6 @@ def find_command():
     else:
       return render_template('find_command.html', req_type='empty', 
         distros=mongo.db.distros.find())
-
 
 # EDIT COMMAND VIEW
 @app.route('/edit/<command_id>')
@@ -119,28 +131,35 @@ def delete_command(command_id):
   mongo.db.commands.remove({'_id': ObjectId(command_id)})
   return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-
-
-# ===============
-# Custom Operations
-# ===============
+# ==================
+# My List Operations
+# ==================
 
 # ADD TO LIST VIEW
 @app.route('/add_to_list/<command_id>')
 def add_to_list(command_id):
   # pdb.set_trace()
   cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
-  if cmd_to_save['app_name'] in my_list:
+  formatted_name = f"{cmd_to_save['app_name']}_{cmd_to_save['app_distro']}"
+  if formatted_name in my_list:
     return 'app already in list'
   else:
-    my_list[cmd_to_save['app_name']] = {'instructions': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
-    return redirect(url_for('my_list_func', my_list=my_list))
+    my_list[formatted_name] = {'instructions': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    return redirect(url_for('my_list_func'))
   
 # MY LIST VIEW
 @app.route('/my_list')
 def my_list_func():
   return render_template('my_list.html', my_list=my_list)
 
+# remove action for MY LIST VIEW
+@app.route('/remove_from_list/<command_id>')
+def remove_from_list(command_id):
+ return 'something'
+
+# ===============
+# other Operations
+# ===============
 # UPLOAD COMMANDS
 # @app.route()
 
