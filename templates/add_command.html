@@ -2,32 +2,32 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <h2>Add Command</h2>
-<form action="{{ url_for('insert_command') }}" method="POST">
+<form action="" method="POST">
     <div class="form-group">
+        {{ form.hidden_tag() }}
         <label for="app_name">App Name</label>
-        <input type="text" class="form-control" id="app_name" name="app_name" required>
+        {{ form.form_name(id="app_name", class_="form-control", placeholder="Enter app name") }} 
         <br>
         <label for="app_distro">Distro</label>
-        <select id="app_distro" class="form-control" name="app_distro" required>
-            <option value="" disabled selected>Select distro</option>
-            {% for distro in distros %}
-            <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
-            {% endfor %}
-            <!-- <option value="new_distro">add new distro</option> -->
-        </select>
+        {{ form.form_distro(id="app_distro", class_="form-control") }}
         <br>
         <label for="app_url">URL for file download (if required)</label>
-        <input type="text" class="form-control" id="app_url" name="app_url">
+        {{ form.form_url(id="app_url", class_="form-control", placeholder="Enter URL for file download if needed") }}
         <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
         <br>
         <label for="app_instruction">App Instructions</label>
-        <input type="text" class="form-control" id="app_instruction" name="app_instruction" required value="Enter the below command in terminal">
+        {{ form.form_instruction(id="app_instruction", class_="form-control", value="Enter the below command in terminal") }}
         <br>
         <label for="app_command">App Command</label>
-        <input type="text" class="form-control" id="app_command" name="app_command" required>
+        {{ form.form_command(id="app_command", class_="form-control", placeholder="Enter terminal command") }}
         <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...BE CAREFUL</small>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form.form_recaptcha }}
+        {% if error %}
+        <p class="text-danger">Please complete recaptcha</p>
+        {% endif %}
+        <br>
+        {{ form.form_submit(class_="btn btn-primary")}}
     </div>
 </form>
 {% endblock %}

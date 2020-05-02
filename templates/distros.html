@@ -13,13 +13,6 @@
         <h5><i class="{{ distro.distro_logo }}" aria-hidden="true"></i> {{ distro.distro_name }}</h5>
         <p class="card-text">{{ counter[distro.distro_name] }} commands</p>
     </div>
-    <!-- <ul class="list-group list-group-flush">
-        {% for command in commands %}
-        {% if command.app_distro == distro.distro_name %}
-        <li class="list-group-item">{{ command.app_name }}</li>
-        {% endif %}
-        {% endfor %}
-    </ul> -->
     <div class="card-body">
         <a href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}" class="card-link">View Commands</a>
     </div>
