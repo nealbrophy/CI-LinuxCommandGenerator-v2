@@ -9,6 +9,7 @@ import pyperclip
 import pdb
 from form import WTForm_with_ReCaptcha, csrf
 
+# Flask
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'linuxCmdGen'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
@@ -17,11 +18,16 @@ app.config["RECAPTCHA_PUBLIC_KEY"] = '6LdiXPEUAAAAAK14HJzF9_m1YWsMHwhND5zUxq-9'
 app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get('RC_SECRETKEY')
 csrf.init_app(app)
 
+# ==========
+# global vars
+# ==========
 mongo = PyMongo(app)
 
 my_list = {}
 
+# ==========
 # HOME VIEW
+# ==========
 @app.route('/')
 def get_distros():
   distros=mongo.db.distros.find() 
@@ -41,11 +47,9 @@ def get_distro_cmds(distro_name):
         distros=mongo.db.distros.find(),
         results=mongo.db.commands.find({'app_distro': distro_name}))
 
-# ===============
-# CRUD Operations
-# ===============
-
+# =================
 # ADD COMMANDS VIEW
+# =================
 @app.route('/add', methods=['GET','POST'])
 def add_command():
   # pdb.set_trace()
@@ -78,8 +82,9 @@ def add_command():
     elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-
+# =================
 # FIND COMMAND VIEW
+# =================
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
   # pdb.set_trace()
@@ -106,7 +111,9 @@ def find_command():
       return render_template('find_command.html', req_type='empty', 
         distros=mongo.db.distros.find())
 
+# =================
 # EDIT COMMAND VIEW
+# =================
 @app.route('/edit/<command_id>', methods=['POST', 'GET'])
 def edit_command(command_id):
   # pdb.set_trace()
@@ -132,8 +139,9 @@ def edit_command(command_id):
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
       return 'Error'
-
-# confirm delete action from DELETE COMMAND VIEW
+# ===================
+# DELETE COMMAND VIEW
+# ===================
 @app.route('/confirm_delete/<command_id>', methods=['POST', 'GET'])
 def confirm_delete(command_id):
   # pdb.set_trace()
@@ -151,26 +159,24 @@ def confirm_delete(command_id):
       return render_template('delete_command.html', error=form.errors, form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
             distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-
-
-
-# ==================
-# MY LIST Operations
-# ==================
-
+# =================
 # ADD TO LIST VIEW
+# =================
 @app.route('/add_to_list/<command_id>')
 def add_to_list(command_id):
-  pdb.set_trace()
+  # pdb.set_trace()
   cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
-  formatted_name = f"{cmd_to_save['app_name']} ({cmd_to_save['app_distro']})"
-  if formatted_name in my_list:
-    return 'app already in list'
+  # formatted_name = f"{cmd_to_save['app_name']} ({cmd_to_save['app_distro']})"
+  for key, value in my_list.items():
+    if command_id in str(key):
+      return 'app already in list'
   else:
-    my_list[cmd_to_save['app_name']] = {'id': cmd_to_save['_id'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    my_list[cmd_to_save['_id']] = {'app': cmd_to_save['app_name'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
     return redirect(url_for('my_list_func'))
-  
+
+# ============= 
 # MY LIST VIEW
+# =============
 @app.route('/my_list')
 def my_list_func():
   return render_template('my_list.html', my_list=my_list)
@@ -178,7 +184,11 @@ def my_list_func():
 # remove action for MY LIST VIEW
 @app.route('/remove_from_list/<command_id>')
 def remove_from_list(command_id):
- return 'something'
+  for key, value in my_list.items():
+    if str(key) == command_id:
+      my_list.pop(key)
+      return redirect(url_for('my_list_func'))
+      
 
 # ======================
 # COPY COMMAND operation
@@ -189,9 +199,6 @@ def copy_command(command_id):
   pyperclip.copy(cmd_to_copy['app_command'])
   return 'copied to clipboard'
 
-# ======================
-# WTFORM operation
-# ======================
 
 
 
