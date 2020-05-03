@@ -1,3 +1,24 @@
 .main-container {
     margin-top: 5rem;;
 }
+
+.navbar .fl-tux {
+    font-size: 1.5rem;
+}
+
+.navbar {
+    background-color: #4C1036 !important;
+    color: white !important;
+}
+
+.navbar a:link {
+    color: white !important;
+}
+
+.navbar a:visited {
+    color: white !important;
+}
+
+.fa-times-circle {
+    color: red;
+}

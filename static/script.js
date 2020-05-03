@@ -9,7 +9,6 @@ function copyToClipboard(inputText) {
     try {
         let successful = document.execCommand("copy");
         let msg = successful ? "successful" : "unsuccessful";
-        console.log(msg);
     } catch (err) {
         console.log("Copy failed", err);
     }
