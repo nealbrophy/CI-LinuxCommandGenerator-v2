@@ -2,46 +2,46 @@
 {% block title %}Find{% endblock %}
 {% block content %}
 <h3>Find Commands</h3>
+
 <form action="{{ url_for('find_command') }}" method="POST">
+
+    {{ form.hidden_tag() }}
     <div class="form-group">
         <label for="app_name">App Name</label>
-        <input type="text" class="form-control" id="app_name" name="app_name">
+        {{ form.search_app(id="app_name", class_="form-control", placeholder="Enter app name to search") }}
         <br>
         <label for="app_distro">Distro</label>
-        <select id="app_distro" class="form-control" name="app_distro">
-            <option value="" disabled selected>Select distro</option>
-            {% for distro in distros %}
-            <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
-            {% endfor %}
-            <!-- <option value="new_distro">add new distro</option> -->
-        </select>
+        {{ form.search_distro(id="app_distro", class_="form-control") }}
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form.search_submit(class_="btn btn-info", value="Search") }}
     </div>
 </form>
 <hr>
-<h3>Results:</h3>
+
 {% if results %}
 {% for apps in results %}
 {% if req_type == 'insert_fail' %}
 <p>[command already exists]</p>
 {% elif req_type == 'update' %}
 <p>[command updated]</p>
+{% elif req_type == 'empty' %}
+<h3>Please enter search parameters above</h3>
 {% endif %}
+<h3>Results:</h3>
 <div class="card mb-3">
     <div class="card-body">
         <h4 class="card-title">{{ apps['app_name'] }}</h4>
         <h5 class="card-subtitle mb-2 text-muted">Distro: {{ apps['app_distro'] }}</h5>
         <p class="card-text"><strong>Instructions:</strong> {{ apps['app_instruction'] }}</p>
         <p class="card-text"><strong>Command:</strong> {{ apps['app_command'] }} <a class=""
-            href="{{ url_for('copy_command', command_id=apps['_id']) }}"><i class="far fa-copy"></i></a></p>
+                href="{{ url_for('copy_command', command_id=apps['_id'], results=results) }}"><i
+                    class="far fa-copy"></i></a></p>
         <a class="card-link" href="{{ url_for('edit_command', command_id=apps._id) }}">Edit</a>
         <a class="card-link" href="{{ url_for('confirm_delete', command_id=apps._id) }}">Delete</a>
         <a class="card-link" href="{{ url_for('add_to_list', command_id=apps._id) }}">Add to MyList</a>
     </div>
 </div>
 {% endfor %}
-{% else %}
-<h3>Please enter search parameters above</h3>
+
 {% endif %}
 {% endblock %}
