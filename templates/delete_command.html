@@ -11,7 +11,6 @@
         <br>
         <label for="selected_distro">Distro</label>
         {{ form.form_selected_distro(id="selected_distro", class_="form-control", value=cmd_to_delete.app_distro, readonly=readonly) }}
-        {{ form.form_distro(id="app_distro", class_="form-control", value=cmd_to_delete.app_distro, hidden=hidden)}}
         <br>
         <label for="app_url">URL for file download (if required)</label>
         {{ form.form_url(id="app_url", class_="form-control", value=cmd_to_delete.app_url, readonly=readonly) }}
@@ -29,7 +28,7 @@
         <p class="text-danger">Please complete recaptcha {{ form.errors }}</p>
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-danger", value='Delete')}}
+        {{ form.form_submit(id="submit", class_="btn btn-danger", value='Delete') }} 
         <a href="{{ url_for('find_command') }}" class="btn btn-primary">Cancel</a>
     </div>
 </form>

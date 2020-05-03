@@ -39,6 +39,16 @@ class WTForm_with_ReCaptcha(FlaskForm):
     form_command = StringField('app_command', validators=[DataRequired()])
     form_submit = SubmitField('Submit')
 
+class DeleteForm(FlaskForm):
+    form_recaptcha = RecaptchaField()
+    form_name = StringField('app_name', validators=[DataRequired()])
+    # form_distro = SelectField('app_distro', choices=[distro for distro in distros_for_form])
+    form_selected_distro = StringField('selected_distro')
+    form_url = StringField('app_url')
+    form_instruction = StringField('app_instruction', validators=[DataRequired()])
+    form_command = StringField('app_command', validators=[DataRequired()])
+    form_submit = SubmitField('Delete')
+
 class EmailForm(FlaskForm):
     email_recaptcha = RecaptchaField()
     email_address = EmailField('email address', validators=[DataRequired()])

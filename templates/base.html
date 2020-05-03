@@ -9,13 +9,14 @@
     <link href="//cdn.jsdelivr.net/gh/Lukas-W/font-logos@v0.11/assets/font-logos.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/624307dae0.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block head %}
         <title>{% block title %}{% endblock %} - Linux Command Generator</title>
     {% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-danger">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,7 +36,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container main-container">
         {% block content %} {% endblock %}
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

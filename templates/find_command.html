@@ -17,17 +17,22 @@
     </div>
 </form>
 <hr>
-
-{% if results %}
-{% for apps in results %}
-{% if req_type == 'insert_fail' %}
-<p>[command already exists]</p>
-{% elif req_type == 'update' %}
-<p>[command updated]</p>
-{% elif req_type == 'empty' %}
-<h3>Please enter search parameters above</h3>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{% if message == 'Command added' %}
+<p class="text-center"><strong class="text-success">{{ message }}</strong> ...<a href="{{ url_for('add_command') }}">Add More?</a></p>
+{% elif message == 'Command updated' %}
+<p class="text-center"><strong class="text-success">{{ message }}</strong>
+{% else %}
+<p class="text-center"><strong class="text-danger">{{ message }}</strong></p>
 {% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% if results %}
 <h3>Results:</h3>
+{% for apps in results %}
 <div class="card mb-3">
     <div class="card-body">
         <h4 class="card-title">{{ apps['app_name'] }}</h4>

@@ -2,12 +2,12 @@ import os
 from os import path
 if path.exists("env.py"):
   import env 
-from flask import Flask, render_template, redirect, request, url_for, abort
+from flask import Flask, render_template, redirect, request, url_for, abort, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import pyperclip
 import pdb
-from form import WTForm_with_ReCaptcha, csrf, EmailForm, SimpleSearch
+from form import WTForm_with_ReCaptcha, csrf, EmailForm, SimpleSearch, DeleteForm
 import smtplib, ssl
 import yagmail
 
@@ -70,7 +70,8 @@ def add_command():
         'app_distro': {'$regex': add_distro, '$options': 'ix'}
         })
       if existing_cmds:
-        return render_template('find_command.html', req_type='insert_fail',
+        flash('Command already in present')
+        return render_template('find_command.html', form=SimpleSearch(),
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
       else:
@@ -81,10 +82,12 @@ def add_command():
           'app_instruction': form.form_instruction.data,
           'app_command': form.form_command.data}
         mongo.db.commands.insert_one(cmd_to_insert)
-        return render_template('find_command.html', req_type='insert_success',
+        flash('Command added')
+        return render_template('find_command.html', form=SimpleSearch(),
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
+      flash('Please complete reCAPTCHA')
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 # =================
@@ -140,7 +143,8 @@ def edit_command(command_id):
           'app_instruction': form.form_instruction.data,
           'app_command': form.form_command.data
         })
-        return render_template('find_command.html', req_type='update',
+        flash('Command updated')
+        return render_template('find_command.html', form=SimpleSearch(),
           results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
@@ -152,7 +156,7 @@ def edit_command(command_id):
 @app.route('/confirm_delete/<command_id>', methods=['POST', 'GET'])
 def confirm_delete(command_id):
   # pdb.set_trace()
-  form = WTForm_with_ReCaptcha()
+  form = DeleteForm()
   cmd_to_delete = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
   if request.method == 'GET':
     return render_template('delete_command.html', form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
@@ -161,8 +165,10 @@ def confirm_delete(command_id):
     if form.validate():
       if form.form_submit:
         mongo.db.commands.remove({'_id': ObjectId(command_id)})
-        return render_template('find_command.html', req_type='find', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+        flash('Command deleted')
+        return render_template('find_command.html', form=SimpleSearch(), distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     elif form.errors:
+      flash(form.errors)
       return render_template('delete_command.html', error=form.errors, form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
             distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
@@ -176,7 +182,9 @@ def add_to_list(command_id):
   # formatted_name = f"{cmd_to_save['app_name']} ({cmd_to_save['app_distro']})"
   for key in my_list.keys():
     if command_id in str(key):
-      return 'app already in list'
+      flash('command already in list')
+      return redirect(request.referrer)
+      
   else:
     my_list[cmd_to_save['_id']] = {'app': cmd_to_save['app_name'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
     return redirect(url_for('my_list_func'))
@@ -232,9 +240,9 @@ def send_list():
     except Exception:
       return f'Exception: {Exception}'
 
-# ======================
+# ======================    ***********************
 # COPY COMMAND operation - REMOVE IF STICKING WITH JS
-# ======================
+# ======================    ***********************
 # @app.route('/copy_command/<command_id>/<results>')
 # def copy_command(command_id, results):
 #   cmd_to_copy = mongo.db.commands.find_one({'_id': ObjectId(command_id)})

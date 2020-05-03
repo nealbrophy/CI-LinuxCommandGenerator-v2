@@ -11,7 +11,6 @@ Code Institute Milestone 3 - Data Centric Development
 - Flask
 - PyMongo
 - DNSPython 
-- Pyperclip
 - WTForms
 - reCAPTCHA
 - yagmail
@@ -63,15 +62,16 @@ As a Linux enthusiast I want to be able to add, update, and delete commands so I
 
 ### Open Bugs
 <!-- Describe bug, what's wrong, what's the cause, why isn't it fixed -->
- - pylint validator presents problems/warnings saying *Instance of 'WTForm_with_ReCaptcha' has no 'errors' member*
-    - **CAUSE**: Unknown, form.errors is working and returning errors so pylint warning doesn't appear to causing any actual issue.
+ 
 
 ### Squashed Bugs
 <!-- Detail discovery/test/fix -->
 - Delete confirmation screen would always proceed to delete regardless of whether Delete or Cancel button was selected.
     - **CAUSE**: This was due to the WTForm SubmitField response being a boolean. So the response would always be True regardless of which button was clicked since both are valid Submit buttons.
     - **FIX**: Remove the Cancel version of the SubmitField button and replace with a link to the default Find view.
-
+- pylint validator presents problems/warnings saying *Instance of 'WTForm_with_ReCaptcha' has no 'errors' member*
+    - **CAUSE**: See [Nearoo's answer on stackoverflow](https://stackoverflow.com/a/52927347)
+    - **FIX**: Added .pylintrc file to root directory as outlined in stackoverflow answer
 # Credits/Acknowledgements
 - MongoDB regex guidance from:
     - [Regex Query in Mongo docs](https://docs.mongodb.com/manual/reference/operator/query/regex/) 

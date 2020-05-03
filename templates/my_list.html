@@ -2,11 +2,13 @@
 {% block title %}My List{% endblock %}
 {% block content %}
 
-<h3>My List</h3>
-<a href="{{ url_for('send_list') }}" class="btn btn-info">Email My List</a>
+<h3>My List
+    {% if my_list %}
+    <a href="{{ url_for('send_list') }}" class="btn btn-info float-right">Email My List</a>
+    {% endif %}
+</h3>
 {% if my_list %}
 {% for key, value in my_list.items() %}
-
 <div class="card mb-3">
     <div class="container">
         <div class="row">
