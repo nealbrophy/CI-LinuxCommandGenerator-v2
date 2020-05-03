@@ -233,13 +233,13 @@ def send_list():
       return f'Exception: {Exception}'
 
 # ======================
-# COPY COMMAND operation
+# COPY COMMAND operation - REMOVE IF STICKING WITH JS
 # ======================
-@app.route('/copy_command/<command_id>/<results>')
-def copy_command(command_id, results):
-  cmd_to_copy = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
-  pyperclip.copy(cmd_to_copy['app_command'])
-  return redirect(request.referrer)
+# @app.route('/copy_command/<command_id>/<results>')
+# def copy_command(command_id, results):
+#   cmd_to_copy = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
+#   pyperclip.copy(cmd_to_copy['app_command'])
+#   return redirect(request.referrer)
 
 
 # RUN Flask app

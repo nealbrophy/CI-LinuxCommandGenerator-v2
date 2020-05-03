@@ -14,6 +14,7 @@ Code Institute Milestone 3 - Data Centric Development
 - Pyperclip
 - WTForms
 - reCAPTCHA
+- yagmail
 - MongoDB
 - Bootstrap
 - HTML, CSS, JS

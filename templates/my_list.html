@@ -14,9 +14,8 @@
                 <div class="card-body float-left">
                     <h5 class="card-title">{{ value['app'] }} ({{ value['distro'] }})</h5>
                     <p class="card-text"><strong>instruction:</strong> {{ value['instruction'] }}</p>
-                    <p class="card-text"><strong>command:</strong> {{ value['command'] }} <a class=""
-                            href="{{ url_for('copy_command', command_id=key) }}"><i class="far fa-copy"></i></a>
-                    </p>
+                    <p class="card-text"><strong>Command:</strong> <span id="command_{{ key }}" class="command_to_copy">{{ value['command'] }} <a class="copy_button"><i
+                        class="far fa-copy"></i></a></span></p>
                 </div>
             </div>
             <div class="col-1 float-left"><a href="{{ url_for('remove_from_list', command_id=key)}}"><i class="pt-3 pl-lg-5 fas fa-times-circle"></i></a></div>
