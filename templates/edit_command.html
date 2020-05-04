@@ -6,28 +6,49 @@
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
-        <label for="app_name">App Name</label>
-        {{ form.form_name(id="app_name", class_="form-control", default=cmd_to_update.app_name, value=cmd_to_update.app_name) }} 
+        <div class="input-field">
+            <label for="app_name">App Name</label>
+            {{ form.form_name(id="app_name", class_="form-control", default=cmd_to_update.app_name, value=cmd_to_update.app_name) }}
+        </div>
         <br>
-        <label for="app_distro">Distro</label>
-        {{ form.form_distro(id="app_distro", value=cmd_to_update.app_distro, default=cmd_to_update.app_distro, class_="form-control") }}
+        <div class="input-field">
+            <select name="app_distro" id="">
+                {% for distro in distros %}
+                {% if distro.distro_name == cmd_to_update.app_distro %}
+                <option value="{{ distro.distro_name }}" selected>{{ distro.distro_name }}</option>
+                {% else %}
+                <option value="{{ distro.distro_name }}">{{ distro.distro_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <label>Distro</label>
+        </div>
         <br>
-        <label for="app_url">URL for file download (if required)</label>
-        {{ form.form_url(id="app_url", class_="form-control", default=cmd_to_update.app_url, value=cmd_to_update.app_url) }}
-        <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
+        <div class="input-field">
+            <label for="app_url">URL for file download (if required)</label>
+            {{ form.form_url(id="app_url", class_="form-control", default=cmd_to_update.app_url, value=cmd_to_update.app_url) }}
+            <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file
+                download</small>
+        </div>
         <br>
-        <label for="app_instruction">App Instructions</label>
-        {{ form.form_instruction(id="app_instruction", class_="form-control", default=cmd_to_update.app_instruction, value=cmd_to_update.app_instruction) }}
+        <div class="input-field">
+            <label for="app_instruction">App Instructions</label>
+            {{ form.form_instruction(id="app_instruction", class_="form-control", default=cmd_to_update.app_instruction, value=cmd_to_update.app_instruction) }}
+        </div>
         <br>
-        <label for="app_command">App Command</label>
-        {{ form.form_command(id="app_command", class_="form-control", default=cmd_to_update.app_command, value=cmd_to_update.app_command) }}
+        <div class="input-field">
+            <label for="app_command">App Command</label>
+            {{ form.form_command(id="app_command", class_="form-control", default=cmd_to_update.app_command, value=cmd_to_update.app_command) }}
+        </div>
         <br>
-        {{ form.form_recaptcha }}
+        <div class="recaptcha-wrapper">
+            {{ form.form_recaptcha }}
+        </div>
         {% if error %}
         <p class="text-danger">Please complete recaptcha {{ form.errors }}</p>
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-warning", value="Update") }}
+        {{ form.form_submit(class_="btn btn-french center")}}
         <a href="{{ url_for('find_command') }}" class="btn btn-primary">Cancel</a>
     </div>
 </form>

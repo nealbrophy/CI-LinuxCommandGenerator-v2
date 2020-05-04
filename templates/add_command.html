@@ -5,29 +5,46 @@
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
-        <label for="app_name">App Name</label>
-        {{ form.form_name(id="app_name", class_="form-control", placeholder="Enter app name") }} 
+        <div class="input-field">
+            <label for="app_name">App Name</label>
+            {{ form.form_name(id="app_name", class_="form-control", placeholder="Enter app name") }}
+        </div>
         <br>
-        <label for="app_distro">Distro</label>
-        {{ form.form_distro(id="app_distro", class_="form-control") }}
+        <div class="input-field">
+            {{ form.form_distro(id="app_distro", class_="form-control") }}
+            <label>Distro</label>
+        </div>
         <br>
-        <label for="app_url">URL for file download (if required)</label>
-        {{ form.form_url(id="app_url", class_="form-control", placeholder="Enter URL for file download if needed") }}
-        <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
+        <div class="input-field">
+            <label for="app_url">URL for file download (if required)</label>
+            {{ form.form_url(id="app_url", class_="form-control", placeholder="Enter URL for file download if needed") }}
+            <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file
+                download</small>
+        </div>
         <br>
-        <label for="app_instruction">App Instructions</label>
-        {{ form.form_instruction(id="app_instruction", class_="form-control", value="Enter the below command in terminal") }}
+        <div class="input-field">
+            <label for="app_instruction">App Instructions</label>
+            {{ form.form_instruction(id="app_instruction", class_="form-control", value="Enter the below command in terminal") }}
+        </div>
         <br>
-        <label for="app_command">App Command</label>
-        {{ form.form_command(id="app_command", class_="form-control", placeholder="Enter terminal command") }}
-        <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...BE CAREFUL</small>
+        <div class="input-field">
+            <label for="app_command">App Command</label>
+            {{ form.form_command(id="app_command", class_="form-control", placeholder="Enter terminal command") }}
+            <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...<span
+                    class="yellow">BE
+                    CAREFUL</span></small>
+        </div>
         <br>
-        {{ form.form_recaptcha }}
+        <div class="recaptcha-wrapper">
+            {{ form.form_recaptcha }}
+        </div>
         {% if error %}
+
         <p class="text-danger">Please complete recaptcha</p>
+
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-primary")}}
+        {{ form.form_submit(class_="btn btn-french center")}}
     </div>
 </form>
 {% endblock %}

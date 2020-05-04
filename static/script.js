@@ -1,3 +1,4 @@
+// copy command function
 function copyToClipboard(inputText) {
     let textArea = document.createElement("textarea");
     textArea.value = inputText;
@@ -9,6 +10,10 @@ function copyToClipboard(inputText) {
     try {
         let successful = document.execCommand("copy");
         let msg = successful ? "successful" : "unsuccessful";
+        M.toast({
+            html: 'Copied!', 
+            displayLength: 800
+        })
     } catch (err) {
         console.log("Copy failed", err);
     }
@@ -23,3 +28,4 @@ for (let i = 0; i < copyCommand.length; i++) {
         copyToClipboard(document.getElementById(this.id).innerText)
     })
 }
+

@@ -5,10 +5,12 @@
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
-        <label for="email_address">Email Address</label>
-        {{ form.email_address(id="email_address", class_="form-control", placeholder="Enter email address") }} 
+        <div class="input-field">
+            <label for="email_address">Email Address</label>
+            {{ form.email_address(id="email_address", class_="form-control", placeholder="Enter email address") }}
+        </div>
         <br>
-        {{ form.form_recaptcha }}
+        {{ form.email_recaptcha }}
         {% if error %}
         <p class="text-danger">Please complete recaptcha</p>
         {% endif %}

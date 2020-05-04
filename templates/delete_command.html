@@ -6,30 +6,41 @@
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
-        <label for="app_name">App Name</label>
-        {{ form.form_name(id="app_name", class_="form-control", value=cmd_to_delete.app_name, readonly=readonly) }} 
+        <div class="input-field">
+            <label for="app_name">App Name</label>
+            {{ form.form_name(id="app_name", class_="form-control", value=cmd_to_delete.app_name, readonly=readonly) }}
+        </div>
         <br>
-        <label for="selected_distro">Distro</label>
-        {{ form.form_selected_distro(id="selected_distro", class_="form-control", value=cmd_to_delete.app_distro, readonly=readonly) }}
+        <div class="input-field">
+            {{ form.form_selected_distro(id="selected_distro", class_="form-control", value=cmd_to_delete.app_distro, readonly=readonly) }}
+            <label>Distro</label>
+        </div>
         <br>
-        <label for="app_url">URL for file download (if required)</label>
-        {{ form.form_url(id="app_url", class_="form-control", value=cmd_to_delete.app_url, readonly=readonly) }}
-        <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file download</small>
+        <div class="input-field">
+            <label for="app_url">URL for file download (if required)</label>
+            {{ form.form_url(id="app_url", class_="form-control", value=cmd_to_delete.app_url, readonly=readonly) }}
+            <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file
+                download</small>
+        </div>
         <br>
-        <label for="app_instruction">App Instructions</label>
-        {{ form.form_instruction(id="app_instruction", class_="form-control", value=cmd_to_delete.app_instruction, readonly=readonly) }}
+        <div class="input-field">
+            <label for="app_instruction">App Instructions</label>
+            {{ form.form_instruction(id="app_instruction", class_="form-control", value=cmd_to_delete.app_instruction, readonly=readonly) }}
+        </div>
         <br>
-        <label for="app_command">App Command</label>
-        {{ form.form_command(id="app_command", class_="form-control", value=cmd_to_delete.app_command, readonly=readonly) }}
-        <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...BE CAREFUL</small>
+        <div class="input-field">
+            <label for="app_command">App Command</label>
+            {{ form.form_command(id="app_command", class_="form-control", value=cmd_to_delete.app_command, readonly=readonly) }}
+            <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...<span class="yellow">BE
+                CAREFUL</span></small>
+        </div>
         <br>
-        {{ form.form_recaptcha }}
-        {% if error %}
-        <p class="text-danger">Please complete recaptcha {{ form.errors }}</p>
-        {% endif %}
+        <div class="recaptcha-wrapper">
+            {{ form.form_recaptcha }}
+        </div>
         <br>
-        {{ form.form_submit(id="submit", class_="btn btn-danger", value='Delete') }} 
-        <a href="{{ url_for('find_command') }}" class="btn btn-primary">Cancel</a>
+        {{ form.form_submit(id="submit", class_="btn red", value='Delete') }}
+        <a href="{{ url_for('find_command') }}" class="btn deep-purple">Cancel</a>
     </div>
 </form>
 

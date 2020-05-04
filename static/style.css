@@ -1,24 +1,107 @@
-.main-container {
-    margin-top: 5rem;;
+body {
+    background-color: aliceblue;
+    color: #4C1036;
+    font-family: 'Raleway', sans-serif;
 }
 
-.navbar .fl-tux {
+nav {
+    background-color: #6B5CA5 !important;
+    color: white !important;
+}
+
+.main-container {
+    margin-top: 5rem;
+}
+
+.divider {
+    background-color: #a55c96 !important;
+}
+
+.results {
     font-size: 1.5rem;
 }
 
-.navbar {
-    background-color: #4C1036 !important;
-    color: white !important;
+.nav .fl-tux {
+    font-size: 1.5rem;
 }
 
-.navbar a:link {
-    color: white !important;
+.brand-logo {
+    padding-left: .5rem !important;
 }
 
-.navbar a:visited {
-    color: white !important;
+.btn-flat {
+    color: white;
 }
 
-.fa-times-circle {
-    color: red;
+.btn-french {
+    background-color: #71A9F7;
+}
+
+.btn-french:hover {
+    background-color: #7195e4;
+}
+
+.card {
+    background-color: #5c87a5 !important;
+}
+
+.my-card-list {
+    margin-top: 2rem;
+    background-color: rgb(213, 225, 252);
+    border: 1px dashed white;
+}
+
+.material-icons {
+    color: white;
+}
+
+.input-field label {
+    color: #72195A;
+}
+
+.g-recaptcha {
+    display: inline-block
+}
+
+.recaptcha-wrapper {
+    text-align: center;
+}
+
+.input-field input[type=text]:focus + label {
+    color: #4C1036 !important;
+}
+#app_name:focus,
+#app_instruction:focus,
+#app_command:focus,
+#app_url:focus {
+    border-bottom: 1px solid #6B5CA5;
+    box-shadow: 0 1px 0 0 #6B5CA5;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #6B5CA5;
+    box-shadow: 0 1px 0 0 #6B5CA5;
+}
+
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #6B5CA5;
+    box-shadow: 0 1px 0 0 #6B5CA5;
+}
+
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #6B5CA5;
+    box-shadow: 0 1px 0 0 #6B5CA5;
+}
+
+.dropdown-content li>span {
+    color: #72195A;
+}
+
+::placeholder {
+    color: #6B5CA5 !important;
+}
+
+.card-text strong {
+    background-color: pink;
+    color: black;
 }

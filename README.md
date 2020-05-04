@@ -13,7 +13,8 @@ Code Institute Milestone 3 - Data Centric Development
 - DNSPython 
 - WTForms
 - reCAPTCHA
-- yagmail
+- Flask-Toastr
+- SendGrid
 - MongoDB
 - Bootstrap
 - HTML, CSS, JS
