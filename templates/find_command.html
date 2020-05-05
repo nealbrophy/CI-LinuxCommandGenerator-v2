@@ -2,59 +2,63 @@
 {% block title %}Find{% endblock %}
 {% block content %}
 <h3>Find Commands</h3>
+<div class="container">
+    <form action="{{ url_for('find_command') }}" method="POST">
 
-<form action="{{ url_for('find_command') }}" method="POST">
-
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-        <div class="input-field">
-            <label for="app_name">App Name</label>
-            {{ form.search_app(id="app_name", placeholder="Enter app name to search") }}
-        </div>
-        <br>
-        <div class="input-field">
-            {{ form.search_distro(id="app_distro") }}
-            <label>Distro</label>
-        </div>
-        <br>
-        {{ form.search_submit(class_="btn waves-effect waves-purple btn-french", value="Search") }}
-    </div>
-</form>
-{% if results %}
-<br>
-
-{% if find_app and find_distro %}
-<span class="results">Results for <mark>{{ find_app }}</mark> in <mark>{{ find_distro }}</mark>:</span>
-<div class="divider"></div>
-{% elif find_app %}
-<span class="results">Results for <mark>{{ find_app }}</mark>:</span>
-<div class="divider"></div>
-{% elif find_distro %}
-<span class="results">Results for <mark>{{ find_distro }}</mark>:</span>
-<div class="divider"></div>
-{% endif %}
-<div class="row" id="card-container">
-    {% for apps in results %}
-    <div class="col s12 m6 l4">
-        <div class="card find-cards">
-            <div class="card-content white-text">
-                <span class="card-title">{{ apps['app_name'].title() }}</span>
-                <span class="card-subtitle mb-2 text-muted">Distro: {{ apps['app_distro'] }}</span>
-                <p class="card-text">
-                    <strong>Instructions:</strong> {{ apps['app_instruction'] }}
-                    <br>
-                    <strong>Command:</strong> <span id="command_{{ apps._id }}"
-                        class="command_to_copy truncate"><button class="btn-flat copy_button"><i
-                            class="far fa-copy"></i></button> {{ apps['app_command'] }}</span></p>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <div class="input-field">
+                <label for="app_name">App Name</label>
+                {{ form.search_app(id="app_name", placeholder="Enter app name to search") }}
             </div>
-            <div class="card-action">
-                <a class="card-link" href="{{ url_for('edit_command', command_id=apps._id) }}"><span class="material-icons">create</span></a>
-                <a class="card-link" href="{{ url_for('confirm_delete', command_id=apps._id) }}"><span class="material-icons">delete</span></a>
-                <a class="card-link" href="{{ url_for('add_to_list', command_id=apps._id) }}"><span class="material-icons">bookmarks</span></a>
+            <br>
+            <div class="input-field">
+                {{ form.search_distro(id="app_distro") }}
+                <label>Distro</label>
+            </div>
+            <br>
+            {{ form.search_submit(class_="btn waves-effect waves-purple btn-french", value="Search") }}
+        </div>
+    </form>
+    {% if results %}
+    <br>
+
+    {% if find_app and find_distro %}
+    <span class="results">Results for <mark>{{ find_app }}</mark> in <mark>{{ find_distro }}</mark>:</span>
+    <div class="divider"></div>
+    {% elif find_app %}
+    <span class="results">Results for <mark>{{ find_app }}</mark>:</span>
+    <div class="divider"></div>
+    {% elif find_distro %}
+    <span class="results">Results for <mark>{{ find_distro }}</mark>:</span>
+    <div class="divider"></div>
+    {% endif %}
+    <div class="row" id="card-container">
+        {% for apps in results %}
+        <div class="col s12 m6 l4">
+            <div class="card find-cards">
+                <div class="card-content white-text">
+                    <span class="card-title">{{ apps['app_name'].title() }}</span>
+                    <span class="card-subtitle mb-2 text-muted">Distro: {{ apps['app_distro'] }}</span>
+                    <p class="card-text">
+                        <strong>Instructions:</strong> {{ apps['app_instruction'] }}
+                        <br>
+                        <strong>Command:</strong> <span id="command_{{ apps._id }}"
+                            class="command_to_copy truncate"><button class="btn-flat copy_button"><i
+                                    class="far fa-copy"></i></button> {{ apps['app_command'] }}</span></p>
+                </div>
+                <div class="card-action">
+                    <a class="card-link" href="{{ url_for('edit_command', command_id=apps._id) }}"><span
+                            class="material-icons">create</span></a>
+                    <a class="card-link" href="{{ url_for('confirm_delete', command_id=apps._id) }}"><span
+                            class="material-icons">delete</span></a>
+                    <a class="card-link" href="{{ url_for('add_to_list', command_id=apps._id) }}"><span
+                            class="material-icons">bookmarks</span></a>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endif %}
 {% endblock %}

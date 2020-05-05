@@ -8,27 +8,31 @@ from flask_toastr import Toastr
 from bson.objectid import ObjectId
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Content, Email
-import pyperclip
 import pdb
 from form import WTForm_with_ReCaptcha, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm
 import smtplib, ssl
-import yagmail
 
-# Flask
+# instantiate Flask app
 app = Flask(__name__)
+# mongodb
 app.config["MONGO_DBNAME"] = 'linuxCmdGen'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+# csrf
 app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
+csrf.init_app(app)
+# recaptcha
 app.config["RECAPTCHA_PUBLIC_KEY"] = '6LdiXPEUAAAAAK14HJzF9_m1YWsMHwhND5zUxq-9'
 app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get('RC_SECRETKEY')
-csrf.init_app(app)
+# pymongo
+mongo = PyMongo(app)
+# flask_toastr
 toastr = Toastr(app)
+app.config['TOASTR_TIMEOUT'] = 4000
 
 
 # ==========
 # global vars
 # ==========
-mongo = PyMongo(app)
 my_list = {}
 distros_for_form = {distro['distro_name'] for distro in mongo.db.distros.find()}
 # ==========
@@ -152,7 +156,8 @@ def edit_command(command_id):
           results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
-      return f'{form.errors}'
+      flash("ReCAPTCHA missing!", "warning")
+      return redirect(request.referrer)
 
 # ===================
 # DELETE COMMAND VIEW

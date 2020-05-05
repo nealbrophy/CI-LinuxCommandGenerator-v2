@@ -2,6 +2,7 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <h2>Add Command</h2>
+<div class="container">
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
@@ -47,4 +48,5 @@
         {{ form.form_submit(class_="btn btn-french center")}}
     </div>
 </form>
+</div>
 {% endblock %}

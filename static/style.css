@@ -105,3 +105,13 @@ nav {
     background-color: pink;
     color: black;
 }
+
+.toast-title, 
+.toast-close-button,
+.toast-progress {
+    display: none;
+}
+
+.toast {
+    background-color: tomato;
+}

@@ -12,7 +12,8 @@ function copyToClipboard(inputText) {
         let msg = successful ? "successful" : "unsuccessful";
         M.toast({
             html: 'Copied!', 
-            displayLength: 800
+            displayLength: 800,
+            classes: 'toast'
         })
     } catch (err) {
         console.log("Copy failed", err);

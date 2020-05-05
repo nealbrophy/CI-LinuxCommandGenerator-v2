@@ -2,7 +2,7 @@
 {% block title %}Edit{% endblock %}
 {% block content %}
 <h2>Update Command</h2>
-
+<div class="container">
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
@@ -49,7 +49,8 @@
         {% endif %}
         <br>
         {{ form.form_submit(class_="btn btn-french center")}}
-        <a href="{{ url_for('find_command') }}" class="btn btn-primary">Cancel</a>
+        <a href="{{ request.referrer }}" class="btn btn-primary">Cancel</a>
     </div>
 </form>
+</div>
 {% endblock %}

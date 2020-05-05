@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}My List{% endblock %}
 {% block content %}
+<div class="container">
 {% if my_list %}
+
 <a href="{{ request.referrer }}" class="btn-small left waves-effect waves-light deep-purple"><i class="material-icons">keyboard_backspace</i></a>
 {% endif %}
 <h3>My List
     {% if my_list %}
-    <a href="{{ url_for('send_list') }}" class="btn btn-info float-right">Email My List</a>
+    <a href="{{ url_for('send_list') }}" class="btn btn-info right">Email My List</a>
     {% endif %}
 </h3>
 {% if my_list %}
@@ -34,4 +36,5 @@
 {% else %}
 <p>You haven't saved any commands yet</p>
 {% endif %}
+</div>
 {% endblock %}

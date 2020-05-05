@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block head %}
     {{ toastr.include_jquery() }}
-    {{ toastr.include_toastr_css() }}
+    {{ toastr.include_toastr_css('/static/style.css') }}
     {{ toastr.message() }}
     <title>{% block title %}{% endblock %} - Linux Command Generator</title>
     {% endblock %}

@@ -16,10 +16,8 @@
                 <p>{{ counter[distro.distro_name] }} commands</p>
             </div>
             <div class="card-action">
-                <a class="btn-flat" href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}"><span class="left-align material-icons">
+                <a class="btn-flat" href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}"><span class="material-icons">
                         search</span></a>
-                <a href="#" class="btn-flat"><span class="right-align material-icons">
-                        add_circle_outline</span></a>
             </div>
         </div>
     </div>
