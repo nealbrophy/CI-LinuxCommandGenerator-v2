@@ -4,7 +4,7 @@ click==7.1.2
 dnspython==1.16.0
 Flask==1.1.2
 Flask-PyMongo==2.3.0
-Flask-Toastr==0.5.4
+flask-toastr==0.5.4
 Flask-WTF==0.14.3
 isort==4.3.21
 itsdangerous==1.1.0
