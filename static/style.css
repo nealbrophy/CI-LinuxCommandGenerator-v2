@@ -1,12 +1,15 @@
 body {
     background-color: aliceblue;
-    color: #4C1036;
+    color: black;
     font-family: 'Raleway', sans-serif;
 }
 
 nav {
-    background-color: #6B5CA5 !important;
-    color: white !important;
+    background-color: #6c5897 !important;
+}
+
+strong {
+    font-weight: bold;
 }
 
 .main-container {
@@ -33,16 +36,8 @@ nav {
     color: white;
 }
 
-.btn-french {
-    background-color: #71A9F7;
-}
-
-.btn-french:hover {
-    background-color: #7195e4;
-}
-
-.card {
-    background-color: #5c87a5 !important;
+.card-link span:hover {
+    color: orange;
 }
 
 .my-card-list {
@@ -94,7 +89,7 @@ nav {
 }
 
 .dropdown-content li>span {
-    color: #72195A;
+    color: #72195a;
 }
 
 ::placeholder {
@@ -102,7 +97,7 @@ nav {
 }
 
 .card-text strong {
-    background-color: pink;
+    background-color: orange;
     color: black;
 }
 

@@ -2,7 +2,7 @@
 {% block title %}Delete{% endblock %}
 {% block content %}
 <h2>Delete Command</h2>
-<p>Are you sure you want to delete this command?</p>
+<p><span class="orange">Are you <strong>SURE</strong> you want to delete this command?</span></p>
 <form action="" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
@@ -31,7 +31,7 @@
         <div class="input-field">
             <label for="app_command">App Command</label>
             {{ form.form_command(id="app_command", class_="form-control", value=cmd_to_delete.app_command, readonly=readonly) }}
-            <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...<span class="yellow">BE
+            <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...<span class="orange">BE
                 CAREFUL</span></small>
         </div>
         <br>
@@ -39,8 +39,8 @@
             {{ form.form_recaptcha }}
         </div>
         <br>
-        {{ form.form_submit(id="submit", class_="btn red", value='Delete') }}
-        <a href="{{ url_for('find_command') }}" class="btn deep-purple">Cancel</a>
+        {{ form.form_submit(id="submit", class_="btn deep-purple btn-large hoverable", value='Delete') }}
+        <a href="{{ url_for('find_command') }}" class="btn btn-large orange hoverable">Cancel</a>
     </div>
 </form>
 

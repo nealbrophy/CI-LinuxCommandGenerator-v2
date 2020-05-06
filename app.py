@@ -9,7 +9,7 @@ from bson.objectid import ObjectId
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Content, Email
 import pdb
-from form import WTForm_with_ReCaptcha, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm
+from form import AddCommandForm, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm, AddDistroForm
 import smtplib, ssl
 
 # instantiate Flask app
@@ -60,12 +60,42 @@ def get_distro_cmds(distro_name):
         results=mongo.db.commands.find({'app_distro': distro_name}))
 
 # =================
+# FIND COMMAND VIEW
+# =================
+@app.route('/find_command', methods=['GET','POST']) 
+def find_command():
+  # pdb.set_trace()
+  form = SimpleSearch()
+  if request.method == 'GET':
+    return render_template('find_command.html', req_type='find', form=form, distros=mongo.db.distros.find())
+  else:
+    if form.search_app.data and form.search_distro.data:
+      find_app = form.search_app.data.replace(' ', '')
+      find_distro = form.search_distro.data
+      return render_template('find_command.html', req_type='find', form=form, find_app=find_app, find_distro=find_distro,
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}))
+    elif form.search_app.data:
+      find_app = form.search_app.data
+      return render_template('find_command.html', req_type='find', form=form, find_app=find_app,
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}}))
+    elif form.search_distro.data:
+      find_distro = form.search_distro.data
+      return render_template('find_command.html', req_type='find', form=form, find_distro=find_distro,
+        distros=mongo.db.distros.find(),
+        results=mongo.db.commands.find({'app_distro': find_distro}))
+    else:
+      return render_template('find_command.html', req_type='empty', form=form,
+        distros=mongo.db.distros.find())
+
+# =================
 # ADD COMMANDS VIEW
 # =================
-@app.route('/add', methods=['GET','POST'])
+@app.route('/add_command', methods=['GET','POST'])
 def add_command():
   # pdb.set_trace()
-  form = WTForm_with_ReCaptcha()
+  form = AddCommandForm()
   if request.method == 'GET':
     return render_template('add_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
   else: 
@@ -98,34 +128,36 @@ def add_command():
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
 # =================
-# FIND COMMAND VIEW
+# ADD DISTRO VIEW
 # =================
-@app.route('/find_command', methods=['GET','POST']) 
-def find_command():
-  # pdb.set_trace()
-  form = SimpleSearch()
+@app.route('/add_distro', methods=['GET','POST'])
+def add_distro():
+  form = AddDistroForm()
   if request.method == 'GET':
-    return render_template('find_command.html', req_type='find', form=form, distros=mongo.db.distros.find())
+    return render_template('add_distro.html', form=form)
   else:
-    if form.search_app.data and form.search_distro.data:
-      find_app = form.search_app.data.replace(' ', '')
-      find_distro = form.search_distro.data
-      return render_template('find_command.html', req_type='find', form=form, find_app=find_app, find_distro=find_distro,
-        distros=mongo.db.distros.find(),
-        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}, 'app_distro': find_distro}))
-    elif form.search_app.data:
-      find_app = form.search_app.data
-      return render_template('find_command.html', req_type='find', form=form, find_app=find_app,
-        distros=mongo.db.distros.find(),
-        results=mongo.db.commands.find({'app_name': {'$regex': find_app, '$options': 'ix'}}))
-    elif form.search_distro.data:
-      find_distro = form.search_distro.data
-      return render_template('find_command.html', req_type='find', form=form, find_distro=find_distro,
-        distros=mongo.db.distros.find(),
-        results=mongo.db.commands.find({'app_distro': find_distro}))
-    else:
-      return render_template('find_command.html', req_type='empty', form=form,
-        distros=mongo.db.distros.find())
+    if form.validate():
+      distro = form.distro_name.data
+      logo = form.distro_logo.data
+      existing_distro = mongo.db.distros.count_documents({
+        'distro_name': {'$regex': distro, '$options': 'ix'}
+        })
+      if existing_distro:
+        flash('distro already exists!', 'warning')
+        return render_template('distros.html')
+      else:
+        distro_to_add = {
+            'distro_name': distro,
+            'distro_logo': logo
+          }
+        mongo.db.distros.insert_one(distro_to_add)
+        flash('distro added!')
+        return render_template('distros.html')
+    elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
+      flash('Please complete reCAPTCHA!')
+      return render_template('add_distro.html', form=form, error='captcha missing')
+      
+
 
 # =================
 # EDIT COMMAND VIEW
@@ -138,7 +170,7 @@ def edit_command(command_id):
   cmd_to_update = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
   distros = mongo.db.distros.find()
   if request.method == 'GET':
-    return render_template('edit_command.html', form = WTForm_with_ReCaptcha(), cmd_to_update=cmd_to_update, distros=distros)
+    return render_template('edit_command.html', form = AddCommandForm(), cmd_to_update=cmd_to_update, distros=distros)
   else:
     # pdb.set_trace()
     if form.validate():

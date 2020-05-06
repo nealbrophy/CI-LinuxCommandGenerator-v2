@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired
 
 csrf = CSRFProtect()
 
-class WTForm_with_ReCaptcha(FlaskForm):
+class AddCommandForm(FlaskForm):
     form_recaptcha = RecaptchaField()
     form_name = StringField('app_name', validators=[DataRequired()])
     form_distro = SelectField('app_distro', validators=[DataRequired()], choices=[
@@ -88,3 +88,9 @@ class SimpleSearch(FlaskForm):
         ('Slackware', 'Slackware')
         ])
     search_submit = SubmitField('Search')
+
+class AddDistroForm(FlaskForm):
+    form_recaptcha = RecaptchaField()
+    distro_name = StringField('distro_name', validators=[DataRequired()])
+    distro_logo = StringField('distro_logo', validators=[DataRequired()])
+    form_submit = SubmitField('Submit')

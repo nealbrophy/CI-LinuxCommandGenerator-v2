@@ -15,7 +15,7 @@
 <div class="row my-card-list" id="card-container">
     {% for key, value in my_list.items() %}
     <div class="col s12 m6 l4">
-        <div class="card">
+        <div class="card hoverable deep-purple">
             <div class="card-content white-text">
                 <a href="{{ url_for('remove_from_list', command_id=key)}}" class="btn-floating btn-small right waves-effect waves-light red"><i class="material-icons">remove</i></a>
                 <div class="card-body float-left">

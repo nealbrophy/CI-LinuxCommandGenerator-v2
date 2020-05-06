@@ -25,26 +25,87 @@
             <a class="brand-logo" href="{{ url_for('get_distros') }}"><span class="fl-tux"></span></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>                
                 <ul class="right hide-on-med-and-down">
+                    {% if 'find_command' in request.path %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('find_command') }}">Find <span
+                        <a class="nav-link" href="{{ url_for('find_command') }}">Find Commands<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('add_command') }}">Add</a>
+                        <a class="nav-link" href="{{ url_for('add_command') }}">Add Command</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_distro') }}">Add Distro</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('my_list_func')}}">My List</a>
                     </li>
+                    {% elif 'add_command' in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('find_command') }}">Find Commands</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('add_command') }}">Add Command<span
+                            class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_distro') }}">Add Distro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_list_func')}}">My List</a>
+                    </li>
+                    {% elif 'my_list' in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('find_command') }}">Find Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_command') }}">Add Command</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_distro') }}">Add Distro</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('my_list_func')}}">My List<span
+                            class="sr-only">(current)</span></a>
+                    </li>
+                    {% elif 'add_distro' in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('find_command') }}">Find Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_command') }}">Add Command</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('add_distro') }}">Add Distro<span
+                            class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_list_func')}}">My List</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('find_command') }}">Find Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_command') }}">Add Command</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_distro') }}">Add Distro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_list_func')}}">My List</a>
+                    </li>
+                    {% endif %}
                 </ul>
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="">Find</a></li>
-        <li><a href="">Add</a></li>
-        <li><a href="">My List</a></li>
+        <li><a href="{{ url_for('find_command') }}">Find Commands</a></li>
+        <li><a href="{{ url_for('add_command') }}">Add Command</a></li>
+        <li><a href="{{ url_for('my_list_func')}}">My List</a></li>
     </ul>
     <div class="container center-align main-container">
         {% block content %} {% endblock %}
+        
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='script.js')}}"></script>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Edit{% endblock %}
 {% block content %}
-<h2>Update Command</h2>
+<h2>Edit Command</h2>
 <div class="container">
 <form action="" method="POST">
     <div class="form-group">
@@ -48,8 +48,8 @@
         <p class="text-danger">Please complete recaptcha {{ form.errors }}</p>
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-french center")}}
-        <a href="{{ request.referrer }}" class="btn btn-primary">Cancel</a>
+        {{ form.form_submit(class_="btn btn-large deep-purple center")}}
+        <a href="{{ request.referrer }}" class="btn orange btn-large">Cancel</a>
     </div>
 </form>
 </div>

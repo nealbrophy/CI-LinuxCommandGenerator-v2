@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Add{% endblock %}
+{% block content %}
+<h2>Add Distro</h2>
+<div class="container">
+<form action="" method="POST">
+    <div class="form-group">
+        {{ form.hidden_tag() }}
+        <div class="input-field">
+            <label for="distro_name">Distro Name</label>
+            {{ form.distro_name(id="distro_name", class_="form-control", placeholder="Enter distro name") }}
+        </div>
+        <br>
+        <div class="input-field">
+            <label for="distro_url">Distro Logo</label>
+            {{ form.distro_logo(id="distro_logo", class_="form-control", placeholder="e.g. 'fas fa-arrows-alt'") }}
+            <small id="app_url_Help" class="form-text text-muted">Look for a suitable logo in <a href="https://fontawesome.com/icons?d=gallery">Font Awesome</a>, <a href="https://material.io/resources/icons/?style=baseline">Material Icons</a>, or <a href="https://github.com/Lukas-W/font-logos">Font Logos</a></small>
+        </div>
+        <br>
+        <div class="recaptcha-wrapper">
+            {{ form.form_recaptcha }}
+        </div>
+        {% if error %}
+
+        <p class="text-danger">Please complete recaptcha</p>
+
+        {% endif %}
+        <br>
+        {{ form.form_submit(class_="btn btn-large deep-purple center hoverable")}}
+    </div>
+</form>
+</div>
+{% endblock %}
