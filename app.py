@@ -286,33 +286,7 @@ def send_list():
     except Exception as e:
       flash(f'{e}')
       return redirect(request.referrer)
-
-      # email_body = ""
-      # for value in my_list.values():
-      #   email_body += f"""
-      #   <h3>{value['app']}</h3>
-      #   <p><strong>Distro:</strong> {value['distro']}.
-      #   <br>
-      #   <strong>Download URL (if available):</strong>{value['url']}.
-      #   <br>
-      #   <strong>Instruction:</strong>{value['instruction']}.
-      #   <br>
-      #   <strong>Command:</strong>{value['command']}
-      #   <hr>
-      #   """
-    #   yag = yagmail.SMTP(sender_email, password)
-    #   receiver = form.email_address.data
-    #   yag.send(
-    #     to=receiver,
-    #     subject="Commands from Linux Command Generator",
-    #     contents=email_body
-    #   )
-    #   flash('Email sent', 'success')
-    #   return redirect(request.referrer)
-    # except Exception:
-    #   flash(f'Failed!', 'warning')
-    #   return redirect(request.referrer)
-
+      
 # RUN Flask app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
