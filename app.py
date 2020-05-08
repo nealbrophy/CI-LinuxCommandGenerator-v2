@@ -52,6 +52,9 @@ def get_distros():
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
+# =================
+# DISTRO commands VIEW
+# =================
 @app.route('/distro_cmds/<distro_name>', methods=['GET', 'POST'])
 def get_distro_cmds(distro_name):
   form = SimpleSearch()
@@ -60,7 +63,7 @@ def get_distro_cmds(distro_name):
         results=mongo.db.commands.find({'app_distro': distro_name}))
 
 # =================
-# FIND COMMAND VIEW
+# FIND commands VIEW
 # =================
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
@@ -90,7 +93,16 @@ def find_command():
         distros=mongo.db.distros.find())
 
 # =================
-# ADD COMMANDS VIEW
+# COMMAND VIEW
+# =================
+@app.route('/command/<command_id>')
+def command_view(command_id):
+  command = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
+  return render_template('command.html', command=command)
+
+
+# =================
+# ADD command VIEW
 # =================
 @app.route('/add_command', methods=['GET','POST'])
 def add_command():

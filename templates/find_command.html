@@ -40,10 +40,10 @@
     <div class="col s12 m6 l4">
         <div class="card find-cards deep-purple hoverable">
             <div class="card-content white-text">
-                <span class="card-title">{{ apps['app_name'].title() }}</span>
+                <a href="{{ url_for('command_view', command_id=apps._id) }}"><span class="card-title">{{ apps['app_name'].title() }}</span></a>
                 <span class="card-subtitle mb-2">Distro: {{ apps['app_distro'] }}</span>
                 <p class="card-text">
-                    <strong>Instructions:</strong> {{ apps['app_instruction'] }}
+                    <strong>Instructions:</strong><span class="truncate tooltipped" data-position="bottom" data-tooltip="{{ apps['app_instruction'] }}"> {{ apps['app_instruction'] }}</span>
                     <br>
                     <strong>Command:</strong> <span id="command_{{ apps._id }}" class="command_to_copy truncate tooltipped" data-position="bottom" data-tooltip="{{ apps['app_command'] }}"><button
                             class="btn-flat copy_button"><i class="far fa-copy"></i></button>

@@ -80,3 +80,7 @@ As a Linux enthusiast I want to be able to add, update, and delete commands so I
 - reCAPTCHA implementation with guidance from:
     - John Sobanski's [Easy ReCAPTCHA with Flask-WTF](https://john.soban.ski/add-recaptcha-to-your-flask-application.html)
     - soumilshah1995's [YouTube demo](https://www.youtube.com/watch?v=MmHrncoIOO8)
+
+- Abstract background vector from [Creative_hat on freepik](https://www.freepik.com/free-photos-vectors/background)
+- Laptop vector image from [pngtree](https://pngtree.com/so/color)
+- Computer vector image from [pngtree](https://pngtree.com/so/one)
