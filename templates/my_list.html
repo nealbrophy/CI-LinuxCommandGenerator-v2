@@ -2,7 +2,8 @@
 {% block title %}My List{% endblock %}
 {% block content %}
 <div class="container">
-{% if my_list %}
+    <div class="list-bg"></div>
+    {% if my_list %}
 
 <a href="{{ request.referrer }}" class="btn-small left waves-effect waves-light deep-purple"><i class="material-icons">keyboard_backspace</i></a>
 {% endif %}

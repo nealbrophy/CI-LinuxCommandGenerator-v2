@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Find{% endblock %}
 {% block content %}
+
 <h3>Find Commands</h3>
 <div class="container">
+    <div class="find-bg"></div>
     <form action="{{ url_for('find_command') }}" method="POST">
 
         {{ form.hidden_tag() }}
@@ -17,7 +19,7 @@
                 <label>Distro</label>
             </div>
             <br>
-                {{ form.search_submit(class_="btn btn-large deep-purple hoverable", value="Search") }}
+                {{ form.search_submit(class_="btn btn-large hoverable", value="Search") }}
         </div>
     </form>
 
@@ -38,7 +40,7 @@
 <div class="row" id="card-container">
     {% for apps in results %}
     <div class="col s12 m6 l4">
-        <div class="card find-cards deep-purple hoverable">
+        <div class="card find-cards hoverable">
             <div class="card-content white-text">
                 <a href="{{ url_for('command_view', command_id=apps._id) }}"><span class="card-title">{{ apps['app_name'].title() }}</span></a>
                 <span class="card-subtitle mb-2">Distro: {{ apps['app_distro'] }}</span>

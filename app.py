@@ -11,8 +11,8 @@ from sendgrid.helpers.mail import Mail, Content, Email
 import pdb
 from form import AddCommandForm, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm, AddDistroForm
 import smtplib, ssl
+import random
 
-# instantiate Flask app
 app = Flask(__name__)
 # mongodb
 app.config["MONGO_DBNAME"] = 'linuxCmdGen'
@@ -29,14 +29,36 @@ mongo = PyMongo(app)
 toastr = Toastr(app)
 app.config['TOASTR_TIMEOUT'] = 4000
 
-
-# ==========
-# global vars
-# ==========
+# =======================
+# global vars & functions
+# =======================
 my_list = {}
 distros_for_form = {distro['distro_name'] for distro in mongo.db.distros.find()}
+header_images = [
+  'https://i.imgur.com/Eazve8h.png',
+  'https://i.imgur.com/6KB5U0y.png',
+  'https://i.imgur.com/SlytyUz.png',
+  'https://i.imgur.com/guFnrW5.png',
+  'https://i.imgur.com/zwz1wla.png',
+  'https://i.imgur.com/rh0SKoJ.png',
+  'https://i.imgur.com/FvkUUea.png',
+  'https://i.imgur.com/QFfaNxs.png',
+  'https://i.imgur.com/rXIBDzI.png',
+  'https://i.imgur.com/bwcn9Sq.png',
+  'https://i.imgur.com/GpnCCcu.png',
+  'https://i.imgur.com/wERzsMH.png'
+]
+footer_images = [
+  'https://i.imgur.com/E8xv9bp.png',
+  'https://i.imgur.com/bOJP0W5.png'
+]
+def random_image(list):
+  for x in range(10):
+    random_num = random.randint(1, 11)
+  return list[random_num]
+
 # ==========
-# HOME VIEW
+#  Flask VIEWS
 # ==========
 @app.route('/')
 def get_distros():
@@ -48,13 +70,11 @@ def get_distros():
     distro_counter.append(distro['distro_name'])
     cmd_counter.append(mongo.db.commands.count_documents({'app_distro': distro['distro_name']}))
   counter = {key:value for key, value in zip(distro_counter, cmd_counter)}
-  return render_template('distros.html', counter=counter, form=form,
+  return render_template('distros.html', header_images=header_images, random_image=random_image(header_images), counter=counter, form=form,
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
-# =================
 # DISTRO commands VIEW
-# =================
 @app.route('/distro_cmds/<distro_name>', methods=['GET', 'POST'])
 def get_distro_cmds(distro_name):
   form = SimpleSearch()
@@ -62,12 +82,9 @@ def get_distro_cmds(distro_name):
         distros=mongo.db.distros.find(),
         results=mongo.db.commands.find({'app_distro': distro_name}))
 
-# =================
 # FIND commands VIEW
-# =================
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
-  # pdb.set_trace()
   form = SimpleSearch()
   if request.method == 'GET':
     return render_template('find_command.html', req_type='find', form=form, distros=mongo.db.distros.find())
@@ -92,21 +109,15 @@ def find_command():
       return render_template('find_command.html', req_type='empty', form=form,
         distros=mongo.db.distros.find())
 
-# =================
 # COMMAND VIEW
-# =================
 @app.route('/command/<command_id>')
 def command_view(command_id):
   command = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
   return render_template('command.html', command=command)
 
-
-# =================
 # ADD command VIEW
-# =================
 @app.route('/add_command', methods=['GET','POST'])
 def add_command():
-  # pdb.set_trace()
   form = AddCommandForm()
   if request.method == 'GET':
     return render_template('add_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
@@ -139,9 +150,7 @@ def add_command():
       flash('Please complete reCAPTCHA!')
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-# =================
 # ADD DISTRO VIEW
-# =================
 @app.route('/add_distro', methods=['GET','POST'])
 def add_distro():
   form = AddDistroForm()
@@ -169,14 +178,9 @@ def add_distro():
       flash('Please complete reCAPTCHA!')
       return render_template('add_distro.html', form=form, error='captcha missing')
       
-
-
-# =================
 # EDIT COMMAND VIEW
-# =================
 @app.route('/edit/<command_id>', methods=['POST', 'GET'])
 def edit_command(command_id):
-  # pdb.set_trace()
   form = EditForm()
   commands = mongo.db.commands
   cmd_to_update = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
@@ -184,7 +188,6 @@ def edit_command(command_id):
   if request.method == 'GET':
     return render_template('edit_command.html', form = AddCommandForm(), cmd_to_update=cmd_to_update, distros=distros)
   else:
-    # pdb.set_trace()
     if form.validate():
       if form.form_submit:
         commands.update({'_id': ObjectId(command_id)}, 
@@ -203,12 +206,9 @@ def edit_command(command_id):
       flash("ReCAPTCHA missing!", "warning")
       return redirect(request.referrer)
 
-# ===================
 # DELETE COMMAND VIEW
-# ===================
 @app.route('/confirm_delete/<command_id>', methods=['POST', 'GET'])
 def confirm_delete(command_id):
-  # pdb.set_trace()
   form = DeleteForm()
   cmd_to_delete = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
   if request.method == 'GET':
@@ -225,26 +225,19 @@ def confirm_delete(command_id):
       return render_template('delete_command.html', error=form.errors, form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
             distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-# ========================
 # ADD TO MY_LIST operation
-# ========================
 @app.route('/add_to_list/<command_id>')
 def add_to_list(command_id):
-  # pdb.set_trace()
   cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
-  # formatted_name = f"{cmd_to_save['app_name']} ({cmd_to_save['app_distro']})"
   for key in my_list.keys():
     if command_id in str(key):
       flash('already in list!', 'warning')
       return redirect(request.referrer)
-      
   else:
     my_list[cmd_to_save['_id']] = {'app': cmd_to_save['app_name'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
     return redirect(url_for('my_list_func'))
 
-# ============= 
 # MY_LIST VIEW
-# =============
 @app.route('/my_list')
 def my_list_func():
   return render_template('my_list.html', my_list=my_list)
@@ -256,12 +249,8 @@ def remove_from_list(command_id):
     if str(key) == command_id:
       my_list.pop(key)
       return redirect(url_for('my_list_func'))
-      
 
-# =======================
 # EMAIL MY_LIST operation
-# =======================
-
 @app.route('/send_list', methods=['GET','POST'])
 def send_list():
   form = EmailForm()
