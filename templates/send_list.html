@@ -11,7 +11,7 @@
                 {{ form.email_address(id="email_address", class_="form-control", placeholder="Enter email address") }}
             </div>
             <br>
-            {{ form.email_recaptcha }}
+            {{ form.recaptcha }}
             {% if error %}
             <p class="text-danger">Please complete recaptcha</p>
             {% endif %}

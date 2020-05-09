@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Delete{% endblock %}
 {% block content %}
+<div class="bg-white-lg"></div>
 <h2>Delete Command</h2>
 <p><span class="orange">Are you <strong>SURE</strong> you want to delete this command?</span></p>
 <form action="" method="POST">
@@ -36,7 +37,7 @@
         </div>
         <br>
         <div class="recaptcha-wrapper">
-            {{ form.form_recaptcha }}
+            {{ form.recaptcha }}
         </div>
         <br>
         {{ form.form_submit(id="submit", class_="btn btn-large hoverable", value='Delete') }}

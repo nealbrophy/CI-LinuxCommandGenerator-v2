@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Find{% endblock %}
 {% block content %}
-
-<h3>Find Commands</h3>
+<div class="bg-white"></div>
+<h2>Find Commands</h2>
 <div class="container">
-    <div class="find-bg"></div>
+    <div class="find-bg s12 m6 l4"></div>
     <form action="{{ url_for('find_command') }}" method="POST">
-
         {{ form.hidden_tag() }}
         <div class="form-group">
             <div class="input-field">
@@ -19,50 +18,56 @@
                 <label>Distro</label>
             </div>
             <br>
-                {{ form.search_submit(class_="btn btn-large hoverable", value="Search") }}
+            {{ form.search_submit(class_="btn btn-large hoverable", value="Search") }}
         </div>
     </form>
-
 </div>
 {% if results %}
 <br>
-
-{% if find_app and find_distro %}
-<span class="results">Results for {{ find_app }} in {{ find_distro }}:</span>
-<div class="divider"></div>
-{% elif find_app %}
-<span class="results">Results for {{ find_app }}:</span>
-<div class="divider"></div>
-{% elif find_distro %}
-<span class="results">Results for {{ find_distro }}:</span>
-<div class="divider"></div>
-{% endif %}
-<div class="row" id="card-container">
-    {% for apps in results %}
-    <div class="col s12 m6 l4">
-        <div class="card find-cards hoverable">
-            <div class="card-content white-text">
-                <a href="{{ url_for('command_view', command_id=apps._id) }}"><span class="card-title">{{ apps['app_name'].title() }}</span></a>
-                <span class="card-subtitle mb-2">Distro: {{ apps['app_distro'] }}</span>
-                <p class="card-text">
-                    <strong>Instructions:</strong><span class="truncate tooltipped" data-position="bottom" data-tooltip="{{ apps['app_instruction'] }}"> {{ apps['app_instruction'] }}</span>
-                    <br>
-                    <strong>Command:</strong> <span id="command_{{ apps._id }}" class="command_to_copy truncate tooltipped" data-position="bottom" data-tooltip="{{ apps['app_command'] }}"><button
-                            class="btn-flat copy_button"><i class="far fa-copy"></i></button>
-                        {{ apps['app_command'] }}</span></p>
-            </div>
-            <div class="card-action">
-                <a class="card-link tooltipped" data-position="bottom" data-tooltip="edit command" href="{{ url_for('edit_command', command_id=apps._id) }}"><span
-                        class="material-icons">create</span></a>
-                <a class="card-link tooltipped" data-position="bottom" data-tooltip="delete command" href="{{ url_for('confirm_delete', command_id=apps._id) }}"><span
-                        class="material-icons">delete</span></a>
-                <a class="card-link tooltipped"  data-position="bottom" data-tooltip="add to My List" href="{{ url_for('add_to_list', command_id=apps._id) }}"><span
-                        class="material-icons">bookmarks</span></a>
+<div class="results">
+    {% if find_app and find_distro %}
+    <span class="results-title">Results for {{ find_app }} in {{ find_distro }}:</span>
+    <div class="divider"></div>
+    {% elif find_app %}
+    <span class="results-title">Results for {{ find_app }}:</span>
+    <div class="divider"></div>
+    {% elif find_distro %}
+    <span class="results-title">Results for {{ find_distro }}:</span>
+    <div class="divider"></div>
+    {% endif %}
+    <div class="row results-wrapper" id="card-container">
+        {% for apps in results %}
+        <div class="col s12 m6 l4">
+            <div class="card find-cards hoverable">
+                <div class="card-content white-text">
+                    <a href="{{ url_for('command_view', command_id=apps._id) }}"><span
+                            class="card-title">{{ apps['app_name'].title() }}</span></a>
+                    <span class="card-subtitle mb-2">Distro: {{ apps['app_distro'] }}</span>
+                    <p class="card-text">
+                        <strong>Instructions:</strong><span class="truncate tooltipped" data-position="bottom"
+                            data-tooltip="{{ apps['app_instruction'] }}"> {{ apps['app_instruction'] }}</span>
+                        <br>
+                        <strong>Command:</strong> <span id="command_{{ apps._id }}"
+                            class="command_to_copy truncate tooltipped" data-position="bottom"
+                            data-tooltip="{{ apps['app_command'] }}"><button class="btn-flat copy_button"><i
+                                    class="far fa-copy"></i></button>
+                            {{ apps['app_command'] }}</span></p>
+                </div>
+                <div class="card-action">
+                    <a class="card-link tooltipped" data-position="bottom" data-tooltip="edit command"
+                        href="{{ url_for('edit_command', command_id=apps._id) }}"><span
+                            class="material-icons">create</span></a>
+                    <a class="card-link tooltipped" data-position="bottom" data-tooltip="delete command"
+                        href="{{ url_for('confirm_delete', command_id=apps._id) }}"><span
+                            class="material-icons">delete</span></a>
+                    <a class="card-link tooltipped" data-position="bottom" data-tooltip="add to My List"
+                        href="{{ url_for('add_to_list', command_id=apps._id) }}"><span
+                            class="material-icons">bookmarks</span></a>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-
 {% endif %}
 {% endblock %}

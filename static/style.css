@@ -3,18 +3,12 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
-.bg-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: .3;
-    background-image: url(https://i.imgur.com/b1D2f8N.jpg);
-    background-size: cover;
-}
-
 nav {
     background-color: #478eff !important;
+}
+
+h2 {
+    font-family: 'Modak', cursive;
 }
 
 strong {
@@ -25,28 +19,67 @@ strong {
     margin-top: 5rem;
 }
 
-.find-bg {
-    background-image: url(https://i.imgur.com/ojjB8Tz.png);
-    background-repeat: no-repeat;
-    opacity: .3;
-    z-index: -1;
-    content: "";
+.nav .fl-tux {
+    font-size: 1.5rem;
+}
+
+.sidenav {
+    background-color: #478eff;
+}
+
+.sidenav li>a {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.bg-image {
     position: absolute;
-    top: 5rem;
     width: 100%;
     height: 100%;
+    z-index: -1;
+    opacity: .3;
+    background-image: url(https://i.imgur.com/b1D2f8N.jpg);
+    background-size: cover;
+}
+
+.find-bg {
+    background-color: white;
+}
+
+.bg-white {
+    position: absolute;
+    left: 5%;
+    background-color: antiquewhite;
+    z-index: -1;
+    width: 90%;
+    height: 50%;
+    border-radius: 3rem;
+    padding-top: 5rem;
+    margin-top: -2rem;
+    border: 3px dashed #478eff;
+}
+.bg-white-lg {
+    position: absolute;
+    left: 2%;
+    background-color: antiquewhite;
+    z-index: -1;
+    width: 95%;
+    height: 88%;
+    border-radius: 3rem;
+    padding-top: 5rem;
+    margin-top: -2rem;
+    border: 3px dashed #478eff;
 }
 
 .list-bg {
-    background-image: url(https://i.imgur.com/Glkuome.png);
-    background-repeat: no-repeat;
     opacity: .2;
-    z-index: -1;
     content: "";
-    position: absolute;
-    top: 5rem;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    border-radius: 50%;
+    top: 16rem;
+    left: 52rem;
+    width: 25rem;
+    height: 25rem;
 }
 
 .header-img {
@@ -55,38 +88,75 @@ strong {
 }
 
 .divider {
-    background-color: #091534 !important;
+    background-color: #ff476c !important;
+}
+
+.collapsible-header {
+    background-color: #ff476c;
+    color: #ffed47;
+}
+
+.empty-distros span {
+    margin: .5rem;
+}
+
+.collapsible-body {
+    background-color: #ff476c;
+}
+
+.careful {
+    background-color: #ffed47;
+}
+
+.results-title {
+    font-size: 1.5rem;
 }
 
 .results {
-    font-size: 1.5rem;
-}
-
-.nav .fl-tux {
-    font-size: 1.5rem;
+    margin-top: 12rem;
 }
 
 .brand-logo {
     padding-left: .5rem !important;
 }
 
+.btn {
+    background-color: #478eff;
+}
+
+.btn:hover {
+    background-color: #ff476c;
+}
+
 .btn-flat {
     color: white;
 }
 
+.btn-cancel {
+    background-color: grey;
+}
+
+.btn-cancel:hover {
+    background-color: #ff476c;
+}
+
 .card {
     background-color: #478eff;
-
 }
 
+.card-content a {
+    color: white;
+}
+
+.card-content a:hover {
+    color: #ff476c;
+}
+
+.card-link span {
+    color: white;
+}
 .card-link span:hover {
-    color: orange;
-}
-
-.my-card-list {
-    margin-top: 2rem;
-    background-color: rgb(213, 225, 252);
-    border: 1px dashed white;
+    color: #ff476c;
 }
 
 .material-icons {
@@ -94,7 +164,7 @@ strong {
 }
 
 .input-field label {
-    color: #72195A;
+    color: #478eff;
 }
 
 .g-recaptcha {
@@ -106,42 +176,46 @@ strong {
 }
 
 .input-field input[type=text]:focus + label {
-    color: #4C1036 !important;
+    color: #478eff !important;
 }
 #app_name:focus,
 #app_instruction:focus,
 #app_command:focus,
 #app_url:focus {
-    border-bottom: 1px solid #6B5CA5;
-    box-shadow: 0 1px 0 0 #6B5CA5;
+    border-bottom: 1px solid #478eff;
+    box-shadow: 0 1px 0 0 #478eff;
 }
 
 .input-field input[type=text]:focus {
-    border-bottom: 1px solid #6B5CA5;
-    box-shadow: 0 1px 0 0 #6B5CA5;
+    border-bottom: 1px solid #478eff;
+    box-shadow: 0 1px 0 0 #478eff;
 }
 
 .input-field input[type=text].valid {
-    border-bottom: 1px solid #6B5CA5;
-    box-shadow: 0 1px 0 0 #6B5CA5;
+    border-bottom: 1px solid #478eff;
+    box-shadow: 0 1px 0 0 #478eff;
 }
 
 .input-field input[type=text].invalid {
-    border-bottom: 1px solid #6B5CA5;
-    box-shadow: 0 1px 0 0 #6B5CA5;
+    border-bottom: 1px solid #478eff;
+    box-shadow: 0 1px 0 0 #478eff;
 }
 
 .dropdown-content li>span {
-    color: #72195a;
+    color: #ff476c;
 }
 
 ::placeholder {
-    color: #6B5CA5 !important;
+    color: #ff476c !important;
 }
 
 .card-text strong {
-    background-color: orange;
+    background-color: #ffed47;
     color: black;
+}
+
+#toast-container {
+    bottom: 2.7%;
 }
 
 .toast-title, 
@@ -151,5 +225,37 @@ strong {
 }
 
 .toast {
-    background-color: tomato;
+    background-color: #ff476c;
 }
+
+.remove-card i {
+    color: #ffed47;
+}
+
+@media only screen and (min-width: 601px) {
+    .bg-white {
+        left: 10%;
+        width: 80%;
+        height: 50%;
+    }
+
+    .bg-white-lg {
+        left: 10%;
+        width: 80%;
+        height: 88%;
+    }
+  }
+
+@media only screen and (min-width: 992px) {
+    .bg-white {
+        left: 24%;
+        width: 52%;
+        height: 50%;
+    }
+
+    .bg-white-lg {
+        left: 24%;
+        width: 52%;
+        height: 88%;
+    }
+  }

@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}My List{% endblock %}
 {% block content %}
+<img src="https://i.imgur.com/Glkuome.png" alt="header image" class="header-img">
 <div class="container">
-    <div class="list-bg"></div>
     {% if my_list %}
 
-<a href="{{ request.referrer }}" class="btn-small left waves-effect waves-light deep-purple"><i class="material-icons">keyboard_backspace</i></a>
+<a href="{{ request.referrer }}" class="btn-small btn-floating left"><i class="material-icons">keyboard_backspace</i></a>
 {% endif %}
-<h3>My List
-    {% if my_list %}
+{% if my_list %}
     <a href="{{ url_for('send_list') }}" class="btn btn-info right">Email My List</a>
     {% endif %}
-</h3>
+<h2>My List</h2>
 {% if my_list %}
 <div class="row my-card-list" id="card-container">
     {% for key, value in my_list.items() %}
     <div class="col s12 m6 l4">
-        <div class="card hoverable deep-purple">
+        <div class="card hoverable">
+            <a href="{{ url_for('remove_from_list', command_id=key)}}" class="remove-card right"><i class="material-icons">clear</i></a>
             <div class="card-content white-text">
-                <a href="{{ url_for('remove_from_list', command_id=key)}}" class="btn-floating btn-small right waves-effect waves-light red"><i class="material-icons">remove</i></a>
                 <div class="card-body float-left">
                     <span class="card-title">{{ value['app'].title() }} ({{ value['distro'] }})</span>
                     <p class="card-text">
-                        <strong>Instruction:</strong> {{ value['instruction'] }}
+                        <strong>Instruction:</strong><span class="truncate tooltipped" data-position="bottom" data-tooltip="{{ value['instruction'] }}"> {{ value['instruction'] }}</span>
                         <br>
-                        <strong>Command:</strong> <span id="command_{{ key }}"
-                            class="command_to_copy">{{ value['command'] }} <button class="btn-flat copy_button"><i
-                                    class="far fa-copy"></i></button></span></p>
+                        <strong>Command:</strong> <span id="command_{{ value._id }}"
+                            class="command_to_copy truncate tooltipped" data-position="bottom"
+                            data-tooltip="{{ value['command'] }}"><button class="btn-flat copy_button"><i
+                                    class="far fa-copy"></i></button>
+                            {{ value['command'] }}</span></p>
                 </div>
             </div>
         </div>
