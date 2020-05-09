@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Add{% endblock %}
 {% block content %}
-<div class="bg-white"></div>
 <h2>Add Distro</h2>
 <div class="container">
 <form action="" method="POST">
@@ -19,7 +18,7 @@
         </div>
         <br>
         <div class="recaptcha-wrapper">
-            {{ form.recaptcha }}
+            {{ form.form_recaptcha }}
         </div>
         {% if error %}
 
@@ -27,7 +26,7 @@
 
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-large center hoverable")}}
+        {{ form.form_submit(class_="btn btn-large deep-purple center hoverable")}}
     </div>
 </form>
 </div>

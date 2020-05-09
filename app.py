@@ -8,10 +8,10 @@ from flask_toastr import Toastr
 from bson.objectid import ObjectId
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Content, Email
-from form import AddCommandForm, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm, AddDistroForm
 import pdb
+from form import AddCommandForm, csrf, EmailForm, SimpleSearch, DeleteForm, EditForm, AddDistroForm
 import smtplib, ssl
-from random_image import header_images, random_image
+import random
 
 app = Flask(__name__)
 # mongodb
@@ -23,8 +23,6 @@ csrf.init_app(app)
 # recaptcha
 app.config["RECAPTCHA_PUBLIC_KEY"] = '6LdiXPEUAAAAAK14HJzF9_m1YWsMHwhND5zUxq-9'
 app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get('RC_SECRETKEY')
-
-
 # pymongo
 mongo = PyMongo(app)
 # flask_toastr
@@ -35,6 +33,29 @@ app.config['TOASTR_TIMEOUT'] = 4000
 # global vars & functions
 # =======================
 my_list = {}
+distros_for_form = {distro['distro_name'] for distro in mongo.db.distros.find()}
+header_images = [
+  'https://i.imgur.com/Eazve8h.png',
+  'https://i.imgur.com/6KB5U0y.png',
+  'https://i.imgur.com/SlytyUz.png',
+  'https://i.imgur.com/guFnrW5.png',
+  'https://i.imgur.com/zwz1wla.png',
+  'https://i.imgur.com/rh0SKoJ.png',
+  'https://i.imgur.com/FvkUUea.png',
+  'https://i.imgur.com/QFfaNxs.png',
+  'https://i.imgur.com/rXIBDzI.png',
+  'https://i.imgur.com/bwcn9Sq.png',
+  'https://i.imgur.com/GpnCCcu.png',
+  'https://i.imgur.com/wERzsMH.png'
+]
+footer_images = [
+  'https://i.imgur.com/E8xv9bp.png',
+  'https://i.imgur.com/bOJP0W5.png'
+]
+def random_image(list):
+  for x in range(10):
+    random_num = random.randint(1, 11)
+  return list[random_num]
 
 # ==========
 #  Flask VIEWS
@@ -49,11 +70,7 @@ def get_distros():
     distro_counter.append(distro['distro_name'])
     cmd_counter.append(mongo.db.commands.count_documents({'app_distro': distro['distro_name']}))
   counter = {key:value for key, value in zip(distro_counter, cmd_counter)}
-  empty_distros = {}
-  for key, value in counter.items():
-    if value == 0:
-      empty_distros[key] = value
-  return render_template('distros.html', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
+  return render_template('distros.html', header_images=header_images, random_image=random_image(header_images), counter=counter, form=form,
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
@@ -89,7 +106,6 @@ def find_command():
         distros=mongo.db.distros.find(),
         results=mongo.db.commands.find({'app_distro': find_distro}))
     else:
-      flash('enter search params')
       return render_template('find_command.html', req_type='empty', form=form,
         distros=mongo.db.distros.find())
 
@@ -106,7 +122,6 @@ def add_command():
   if request.method == 'GET':
     return render_template('add_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
   else: 
-    # pdb.set_trace()
     if form.validate():
       add_app = form.form_name.data.lower().replace(' ', '')
       add_distro = form.form_distro.data
@@ -131,7 +146,7 @@ def add_command():
         return render_template('find_command.html', form=SimpleSearch(),
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
-    elif form.recaptcha.data == None:
+    elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
       flash('Please complete reCAPTCHA!')
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
@@ -139,14 +154,9 @@ def add_command():
 @app.route('/add_distro', methods=['GET','POST'])
 def add_distro():
   form = AddDistroForm()
-  empty_distros = {}
-  for key, value in counter.items():
-    if value == 0:
-      empty_distros[key] = value
   if request.method == 'GET':
     return render_template('add_distro.html', form=form)
   else:
-    pdb.set_trace()
     if form.validate():
       distro = form.distro_name.data
       logo = form.distro_logo.data
@@ -155,9 +165,7 @@ def add_distro():
         })
       if existing_distro:
         flash('distro already exists!', 'warning')
-        return redirect(url_for('get_distros', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
-      distros=mongo.db.distros.find(), 
-      commands=mongo.db.commands.find()))
+        return render_template('distros.html')
       else:
         distro_to_add = {
             'distro_name': distro,
@@ -165,14 +173,10 @@ def add_distro():
           }
         mongo.db.distros.insert_one(distro_to_add)
         flash('distro added!')
-        return redirect(url_for('get_distros', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
-      distros=mongo.db.distros.find(), 
-      commands=mongo.db.commands.find()))
+        return render_template('distros.html')
     elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
       flash('Please complete reCAPTCHA!')
-      return redirect(url_for('get_distros', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
-      distros=mongo.db.distros.find(), 
-      commands=mongo.db.commands.find()))
+      return render_template('add_distro.html', form=form, error='captcha missing')
       
 # EDIT COMMAND VIEW
 @app.route('/edit/<command_id>', methods=['POST', 'GET'])
@@ -184,7 +188,6 @@ def edit_command(command_id):
   if request.method == 'GET':
     return render_template('edit_command.html', form = AddCommandForm(), cmd_to_update=cmd_to_update, distros=distros)
   else:
-    pdb.set_trace()
     if form.validate():
       if form.form_submit:
         commands.update({'_id': ObjectId(command_id)}, 
