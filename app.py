@@ -63,6 +63,10 @@ def random_image(list):
 @app.route('/')
 def get_distros():
   form = SimpleSearch()
+  choices = [('', 'select distro')]
+  for distro in mongo.db.distros.find():
+    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+  form.search_distro.choices = choices
   distros=mongo.db.distros.find() 
   distro_counter = []
   cmd_counter = []
@@ -70,7 +74,11 @@ def get_distros():
     distro_counter.append(distro['distro_name'])
     cmd_counter.append(mongo.db.commands.count_documents({'app_distro': distro['distro_name']}))
   counter = {key:value for key, value in zip(distro_counter, cmd_counter)}
-  return render_template('distros.html', header_images=header_images, random_image=random_image(header_images), counter=counter, form=form,
+  empty_distros = {}
+  for key, value in counter.items():
+    if value == 0:
+      empty_distros[key] = value
+  return render_template('distros.html', header_images=header_images, random_image=random_image(header_images), counter=counter, empty_distros=empty_distros, form=form,
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
@@ -78,6 +86,10 @@ def get_distros():
 @app.route('/distro_cmds/<distro_name>', methods=['GET', 'POST'])
 def get_distro_cmds(distro_name):
   form = SimpleSearch()
+  choices = [('', 'select distro')]
+  for distro in mongo.db.distros.find():
+    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+  form.search_distro.choices = choices
   return render_template('find_command.html', req_type='find', form=form, find_distro=distro_name,
         distros=mongo.db.distros.find(),
         results=mongo.db.commands.find({'app_distro': distro_name}))
@@ -86,6 +98,10 @@ def get_distro_cmds(distro_name):
 @app.route('/find_command', methods=['GET','POST']) 
 def find_command():
   form = SimpleSearch()
+  choices = [('', 'select distro')]
+  for distro in mongo.db.distros.find():
+    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+  form.search_distro.choices = choices
   if request.method == 'GET':
     return render_template('find_command.html', req_type='find', form=form, distros=mongo.db.distros.find())
   else:
@@ -119,6 +135,10 @@ def command_view(command_id):
 @app.route('/add_command', methods=['GET','POST'])
 def add_command():
   form = AddCommandForm()
+  choices = [('', 'select distro')]
+  for distro in mongo.db.distros.find():
+    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+  form.form_distro.choices = choices
   if request.method == 'GET':
     return render_template('add_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
   else: 
@@ -131,7 +151,12 @@ def add_command():
         })
       if existing_cmds:
         flash('command already exists!', 'warning')
-        return render_template('find_command.html', form=SimpleSearch(),
+        form=SimpleSearch()
+        choices = [('', 'select distro')]
+        for distro in mongo.db.distros.find():
+          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+        form.search_distro.choices = choices
+        return render_template('find_command.html', form=form,
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
       else:
@@ -143,10 +168,15 @@ def add_command():
           'app_command': form.form_command.data}
         mongo.db.commands.insert_one(cmd_to_insert)
         flash('Command added!')
-        return render_template('find_command.html', form=SimpleSearch(),
+        form=SimpleSearch()
+        choices = [('', 'select distro')]
+        for distro in mongo.db.distros.find():
+          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+        form.search_distro.choices = choices
+        return render_template('find_command.html', form=form,
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
-    elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
+    elif form.form_recaptcha.data == None:
       flash('Please complete reCAPTCHA!')
       return render_template('add_command.html', form=form, error='captcha missing', distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
@@ -154,6 +184,17 @@ def add_command():
 @app.route('/add_distro', methods=['GET','POST'])
 def add_distro():
   form = AddDistroForm()
+  distros=mongo.db.distros.find() 
+  distro_counter = []
+  cmd_counter = []
+  for distro in distros:
+    distro_counter.append(distro['distro_name'])
+    cmd_counter.append(mongo.db.commands.count_documents({'app_distro': distro['distro_name']}))
+  counter = {key:value for key, value in zip(distro_counter, cmd_counter)}
+  empty_distros = {}
+  for key, value in counter.items():
+    if value == 0:
+      empty_distros[key] = value
   if request.method == 'GET':
     return render_template('add_distro.html', form=form)
   else:
@@ -165,7 +206,9 @@ def add_distro():
         })
       if existing_distro:
         flash('distro already exists!', 'warning')
-        return render_template('distros.html')
+        return redirect(url_for('get_distros', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
+      distros=mongo.db.distros.find(), 
+      commands=mongo.db.commands.find()))
       else:
         distro_to_add = {
             'distro_name': distro,
@@ -173,10 +216,13 @@ def add_distro():
           }
         mongo.db.distros.insert_one(distro_to_add)
         flash('distro added!')
-        return render_template('distros.html')
-    elif 'response parameter is missing' in form.errors['form_recaptcha'][0]:
+        return redirect(url_for('get_distros', header_images=header_images, random_image=random_image(header_images), empty_distros=empty_distros, counter=counter, form=form,
+      distros=mongo.db.distros.find(), 
+      commands=mongo.db.commands.find()))
+    elif form.form_recaptcha.data == None:
       flash('Please complete reCAPTCHA!')
       return render_template('add_distro.html', form=form, error='captcha missing')
+
       
 # EDIT COMMAND VIEW
 @app.route('/edit/<command_id>', methods=['POST', 'GET'])
@@ -199,7 +245,12 @@ def edit_command(command_id):
           'app_command': form.form_command.data
         })
         flash('Command updated', 'info')
-        return render_template('find_command.html', form=SimpleSearch(),
+        form=SimpleSearch()
+        choices = [('','select distro')]
+        for distro in mongo.db.distros.find():
+          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+        form.search_distro.choices = choices
+        return render_template('find_command.html', form=form,
           results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
           distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     else:
@@ -219,7 +270,12 @@ def confirm_delete(command_id):
       if form.form_submit:
         mongo.db.commands.remove({'_id': ObjectId(command_id)})
         flash('Command deleted!')
-        return render_template('find_command.html', form=SimpleSearch(), distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
+        form=SimpleSearch()
+        choices = [('','select distro')]
+        for distro in mongo.db.distros.find():
+          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+        form.search_distro.choices = choices
+        return render_template('find_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
     elif form.errors:
       flash('reCAPTCHA missing!', 'error')
       return render_template('delete_command.html', error=form.errors, form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),

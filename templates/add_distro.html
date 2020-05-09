@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Add{% endblock %}
 {% block content %}
+<div class="bg-white"></div>
 <h2>Add Distro</h2>
 <div class="container">
 <form action="" method="POST">
@@ -26,7 +27,7 @@
 
         {% endif %}
         <br>
-        {{ form.form_submit(class_="btn btn-large deep-purple center hoverable")}}
+        {{ form.form_submit(class_="btn btn-large center hoverable")}}
     </div>
 </form>
 </div>

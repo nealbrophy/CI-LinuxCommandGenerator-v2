@@ -23,6 +23,15 @@
     </div>
     {% endif %}
     {% endfor %}
-
 </div>
+<footer class="page-footer empty-distros">
+    <p>The following distros don't currently have any commands, please feel free to <strong><a href="{{ url_for('add_command')}}">add</a></strong> some:</p>
+                {% for key, value in  empty_distros.items() %}
+                <span>{{ key }}</span>
+                {% endfor %}
+
+            </div>
+        </li>
+    </ul>
+</footer>
 {% endblock %}

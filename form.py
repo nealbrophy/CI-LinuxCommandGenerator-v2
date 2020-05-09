@@ -8,33 +8,11 @@ from wtforms.validators import DataRequired
 
 csrf = CSRFProtect()
 
+
 class AddCommandForm(FlaskForm):
     form_recaptcha = RecaptchaField()
     form_name = StringField('app_name', validators=[DataRequired()])
-    form_distro = SelectField('app_distro', validators=[DataRequired()], choices=[
-        ('', ''), 
-        ('Ubuntu', 'Ubuntu'),
-        ('Debian', 'Debian'),
-        ('Arch', 'Arch'),
-        ('Elementary', 'Elementary'),
-        ('Alpine', 'Alpine'),
-        ('CentOS', 'CentOS'),
-        ('Devuan', 'Devuan'),
-        ('Fedora', 'Fedora'),
-        ('Gentoo', 'Gentoo'),
-        ('Linux Mint', 'Linux Mint'),
-        ('Mageia', 'Mageia'),
-        ('Manjaro', 'Manjaro'),
-        ('NixOS', 'NixOS'),
-        ('openSUSE', 'openSUSE'),
-        ('KaOS', 'KaOS'),
-        ('Raspbian', 'Raspbian'),
-        ('Sabayon', 'Sabayon'),
-        ('Void', 'Void'),
-        ('Slackware', 'Slackware')
-        ])
-    # form_distro = SelectField('app_distro', choices=[distro for distro in distros_for_form])
-    form_selected_distro = StringField('selected_distro')
+    form_distro = SelectField('app_distro', validators=[DataRequired()], coerce=str)
     form_url = StringField('app_url')
     form_instruction = StringField('app_instruction', validators=[DataRequired()])
     form_command = StringField('app_command', validators=[DataRequired()])
@@ -43,7 +21,6 @@ class AddCommandForm(FlaskForm):
 class DeleteForm(FlaskForm):
     form_recaptcha = RecaptchaField()
     form_name = StringField('app_name', validators=[DataRequired()])
-    # form_distro = SelectField('app_distro', choices=[distro for distro in distros_for_form])
     form_selected_distro = StringField('selected_distro')
     form_url = StringField('app_url')
     form_instruction = StringField('app_instruction', validators=[DataRequired()])
@@ -65,28 +42,7 @@ class EmailForm(FlaskForm):
 
 class SimpleSearch(FlaskForm):
     search_app = StringField()
-    search_distro = SelectField('app_distro', choices=[
-        ('', ''), 
-        ('Ubuntu', 'Ubuntu'),
-        ('Debian', 'Debian'),
-        ('Arch', 'Arch'),
-        ('Elementary', 'Elementary'),
-        ('Alpine', 'Alpine'),
-        ('CentOS', 'CentOS'),
-        ('Devuan', 'Devuan'),
-        ('Fedora', 'Fedora'),
-        ('Gentoo', 'Gentoo'),
-        ('Linux Mint', 'Linux Mint'),
-        ('Mageia', 'Mageia'),
-        ('Manjaro', 'Manjaro'),
-        ('NixOS', 'NixOS'),
-        ('openSUSE', 'openSUSE'),
-        ('KaOS', 'KaOS'),
-        ('Raspbian', 'Raspbian'),
-        ('Sabayon', 'Sabayon'),
-        ('Void', 'Void'),
-        ('Slackware', 'Slackware')
-        ])
+    search_distro = SelectField('app_distro', validators=[DataRequired()], coerce=str)
     search_submit = SubmitField('Search')
 
 class AddDistroForm(FlaskForm):
