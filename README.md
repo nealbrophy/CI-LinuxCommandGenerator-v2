@@ -273,7 +273,26 @@ The JavaScript in `static/script.js` passes validation using [JSHint](https://js
 
 ## Developed using
 - [Visual Studio Code](https://code.visualstudio.com/) & [Code - OSS](https://github.com/microsoft/vscode/wiki/Differences-between-the-repository-and-Visual-Studio-Code)
+- [PyCharm](https://www.jetbrains.com/pycharm/)
 - [GitKraken](https://gitkraken.com/)
 - [Manjaro](https://manjaro.org/)
 - [Ubuntu](https://ubuntu.com/)
 - [Elementary OS](https://elementary.io/)
+- Star Labs [Star Lite Mk II](https://starlabs.systems/pages/star-lite)
+
+
+#### Installation instructions written/compiled with help from:
+- [All Techs Tricks](https://alltechstricks.blogspot.com/)
+- [LinuxBabe](https://www.linuxbabe.com/)
+- [FOSSLinux](https://www.fosslinux.com/)
+- [TecRobust](https://www.tecrobust.com/)
+- [ItsUbuntu](https://itsubuntu.com/)
+- [DraSite](https://drasite.com/)
+- [LinuxHint](https://linuxhint.com)
+- [AddictiveTips](https://www.addictivetips.com/)
+- [OSRadar](https://www.osradar.com/)
+- [ArchLinux Wiki](https://wiki.archlinux.org/)
+- [suse.com](https://www.suse.com/c/working-command-line-basic-linux-commands/)
+- [opensuse-guide](https://opensuse-guide.org/command.php)
+- [opensuse.org](https://en.opensuse.org/)
+- [ScottLinux](https://scottlinux.com/)
