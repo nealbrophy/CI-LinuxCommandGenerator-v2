@@ -67,7 +67,7 @@ def get_distros():
   form = SimpleSearch()
   choices = [('', 'select distro')]
   for distro in mongo.db.distros.find():
-    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+    choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
   form.search_distro.choices = choices
   distros=mongo.db.distros.find() 
   distro_counter = []
@@ -90,7 +90,7 @@ def get_distro_cmds(distro_name):
   form = SimpleSearch()
   choices = [('', 'select distro')]
   for distro in mongo.db.distros.find():
-    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+    choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
   form.search_distro.choices = choices
   return render_template('find_command.html', req_type='find', form=form, find_distro=distro_name,
         distros=mongo.db.distros.find(),
@@ -102,7 +102,7 @@ def find_command():
   form = SimpleSearch()
   choices = [('', 'select distro')]
   for distro in mongo.db.distros.find():
-    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+    choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
   form.search_distro.choices = choices
   if request.method == 'GET':
     return render_template('find_command.html', req_type='find', form=form, distros=mongo.db.distros.find())
@@ -139,7 +139,7 @@ def add_command():
   form = AddCommandForm()
   choices = [('', 'select distro')]
   for distro in mongo.db.distros.find():
-    choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+    choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
   form.form_distro.choices = choices
   if request.method == 'GET':
     return render_template('add_command.html', form=form, distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
@@ -156,7 +156,7 @@ def add_command():
         form=SimpleSearch()
         choices = [('', 'select distro')]
         for distro in mongo.db.distros.find():
-          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+          choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
         form.search_distro.choices = choices
         return render_template('find_command.html', form=form,
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
@@ -173,7 +173,7 @@ def add_command():
         form=SimpleSearch()
         choices = [('', 'select distro')]
         for distro in mongo.db.distros.find():
-          choices.append((f"{distro['distro_name']}",f"{distro['distro_name']}"))
+          choices.append((f"{distro['distro_name']}", f"{distro['distro_name']}"))
         form.search_distro.choices = choices
         return render_template('find_command.html', form=form,
           results=mongo.db.commands.find({'app_name': {'$regex': add_app, '$options': 'ix'}, 'app_distro': add_distro}),
@@ -350,6 +350,5 @@ def send_list():
 # RUN Flask app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-        port=int(os.environ.get('PORT')),
-        debug=True)
+        port=int(os.environ.get('PORT')))
     

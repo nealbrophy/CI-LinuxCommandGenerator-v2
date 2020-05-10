@@ -1,3 +1,6 @@
+/* ===========
+general styles
+=========== */
 body {
     color: black;
     font-family: 'Raleway', sans-serif;
@@ -16,14 +19,23 @@ strong {
     font-weight: bold;
 }
 
+/* =================
+custom class styling
+=================== */
 .main-container {
     margin-top: 5rem;
 }
 
+/* navbar logo */
 .nav .fl-tux {
     font-size: 1.5rem;
 }
 
+.brand-logo {
+    padding-left: .5rem !important;
+}
+
+/* side/mobile nav */
 .sidenav {
     background-color: #004ECC;
 }
@@ -33,6 +45,7 @@ strong {
     font-size: 1.2rem;
 }
 
+/* background image */
 .bg-image {
     position: absolute;
     width: 100%;
@@ -43,10 +56,8 @@ strong {
     background-size: cover;
 }
 
-.find-bg {
-    background-color: white;
-}
-
+/* background pane */
+/* small */
 .bg-white {
     position: absolute;
     left: 5%;
@@ -59,7 +70,7 @@ strong {
     margin-top: -2rem;
     border: 3px dashed #004ECC;
 }
-
+/* medium */
 .bg-white-md {
     position: absolute;
     left: 5%;
@@ -72,7 +83,7 @@ strong {
     margin-top: -2rem;
     border: 3px dashed #004ECC;
 }
-
+/* large */
 .bg-white-lg {
     position: absolute;
     left: 2%;
@@ -85,7 +96,7 @@ strong {
     margin-top: -2rem;
     border: 3px dashed #004ECC;
 }
-
+/* My List background */
 .list-bg {
     opacity: .2;
     content: "";
@@ -96,7 +107,7 @@ strong {
     width: 25rem;
     height: 25rem;
 }
-
+/* My List header image */
 .header-img {
     width: 15rem;
     border-radius: 50%;
@@ -106,11 +117,12 @@ strong {
     background-color: #B30021 !important;
 }
 
-.collapsible-header {
-    background-color: #B30021;
+/* my list card styling */
+.remove-card i {
     color: #c2af00;
 }
 
+/* empty distros footer section */
 .empty-distros {
     background-color: #B30021;
 }
@@ -123,15 +135,17 @@ strong {
     background-color: #B30021;
 }
 
+/* "be careful" warning background */
 .careful {
     background-color: #c2af00;
 }
-
+/* "are you sure" warning background */
 .sure {
     background-color: #B30021;
     color: white;
 }
 
+/* FIND results section */
 .results-title {
     font-size: 1.5rem;
 }
@@ -140,10 +154,7 @@ strong {
     margin-top: 3rem;
 }
 
-.brand-logo {
-    padding-left: .5rem !important;
-}
-
+/* button styling */
 .btn {
     background-color: #004ECC;
 }
@@ -164,6 +175,15 @@ strong {
     background-color: #B30021;
 }
 
+.back-button {
+    background-color: #B30021;
+}
+
+.back-button:hover {
+    background-color: #004ECC;
+}
+
+/* card styling */
 .card {
     background-color: #004ECC;
 }
@@ -186,9 +206,16 @@ strong {
     color: #B30021;
 }
 
+.card-text strong {
+    background-color: #c2af00;
+    color: black;
+}
+
 .material-icons {
     color: white;
 }
+
+/* form styling */
 
 .input-field label {
     color: #004ECC;
@@ -237,10 +264,7 @@ strong {
     color: #B30021 !important;
 }
 
-.card-text strong {
-    background-color: #c2af00;
-    color: black;
-}
+/* toast styling */
 
 #toast-container {
     bottom: 2.7%;
@@ -252,27 +276,18 @@ strong {
     display: none;
 }
 
-.back-button {
-    background-color: #B30021;
-}
-
-.back-button:hover {
-    background-color: #004ECC;
-}
-
 .toast {
     background-color: #B30021;
 }
 
-.remove-card i {
-    color: #c2af00;
-}
+/* ==========
+MEDIA QUERIES
+=========== */
 
 @media only screen and (min-width: 400px) {
     .results {
         margin-top: 12rem;
     }
-
 }
 
 @media only screen and (min-width: 601px) {
@@ -297,7 +312,6 @@ strong {
     .results {
         margin-top: 12rem;
     }
-
 }
 
 @media only screen and (min-width: 992px) {
