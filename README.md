@@ -141,7 +141,7 @@ If you would like to deploy your version to heroku you can follow the steps belo
 - Give your app a name and choose a region and click `Create App`
 - Go to `Settings` and click `Reveal Config Vars`
 - You should now add config vars here to match those created [above](#Environment-Variables) in your local env.py file. The finished result should look like this:
-    <img src="static/images/heroku-config-vars.png" alt="example of heroku config vars" width="300px">
+<img src="static/images/heroku-config-vars.png" alt="example of heroku config vars" width="300px">
 - In your text-editor/IDE type:
  - `echo web: python app.py > Procfile`
 - Go to the `Deploy` section on your heroku project and follow the instructions to push your app to the heroku git
@@ -204,9 +204,6 @@ To put the app through it's paces I tried each of the CRUD operations repeatedly
 - Clicking the cancel button takes users to the previous page
 - Deleting the command presents a confirmation message and redirects users back to the find commands page
 - Removing a command removes the selected command from DB and this is reflected elsewhere in the app
-
-#### Send-List
-
 
 ## Validation
 
