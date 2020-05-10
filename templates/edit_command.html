@@ -2,7 +2,7 @@
 {% block title %}Edit{% endblock %}
 {% block content %}
 <div class="bg-white-lg"></div>
-<h2>Edit Command</h2>
+<h1>Edit Command</h1>
 <div class="container">
 <form action="{{ url_for('edit_command', command_id=cmd_to_update._id) }}" method="POST">
     <div class="form-group">
@@ -43,6 +43,7 @@
         </div>
         <br>
         <div class="recaptcha-wrapper">
+            <label for="g-recaptcha-response"></label>
             {{ form.form_recaptcha }}
         </div>
         {% if error %}

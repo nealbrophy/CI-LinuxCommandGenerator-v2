@@ -2,7 +2,7 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <div class="bg-white-lg"></div>
-<h2>Add Command</h2>
+<h1>Add Command</h1>
 <div class="container">
 <form action="{{ url_for('add_command')}}" method="POST">
     <div class="form-group">
@@ -14,7 +14,7 @@
         <br>
         <div class="input-field">
             {{ form.form_distro(id="app_distro", class_="form-control") }}
-            <label>Distro</label>
+            <label for="app_distro">Distro</label>
         </div>
         <br>
         <div class="input-field">
@@ -38,6 +38,7 @@
         </div>
         <br>
         <div class="recaptcha-wrapper">
+            <label for="g-recaptcha-response"></label>
             {{ form.form_recaptcha }}
         </div>
         {% if error %}

@@ -10,7 +10,7 @@
 {% if my_list %}
     <a href="{{ url_for('send_list') }}" class="btn btn-info right">Email My List</a>
     {% endif %}
-<h2>My List</h2>
+<h1>My List</h1>
 {% if my_list %}
 <div class="row my-card-list" id="card-container">
     {% for key, value in my_list.items() %}

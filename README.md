@@ -13,20 +13,21 @@ You can view the deployed site on [Heroku](https://linux-command-generator.herok
 <img src="https://github.com/nealbrophy/CI-LinuxCommandGenerator-v2/blob/master/static/images/mobile-view.gif" alt="site demo on iphone" width="200px" align="center">
 
 ### Technologies used
-- Python
-- Flask
-- PyMongo
-- DNSPython 
-- WTForms
-- reCAPTCHA
-- Flask-Toastr
-- SendGrid
-- MongoDB
-- Materialize.css
-- HTML, CSS, JS
-- Google Fonts
-- Font Awesome
-- Font-Logos
+- [Python](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+- [PyMongo](https://pypi.org/project/pymongo/)
+- [DNSPython](https://pypi.org/project/dnspython3/)
+- [WTForms](https://wtforms.readthedocs.io/en/latest/)
+- [reCAPTCHA](https://www.google.com/recaptcha/intro/v3.html)
+- [Flask-Toastr](https://pypi.org/project/Flask-Toastr/)
+- [SendGrid](https://sendgrid.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Materialize.css](https://materializecss.com/)
+- [HTML](https://www.w3schools.com/html/), [CSS](https://www.w3schools.com/Css/), [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+- [Google Fonts](https://fonts.google.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Font-Logos](https://github.com/Lukas-W/font-logos)
+- [Material Icons](https://material.io/resources/icons/?style=baseline)
 
 
 ## UX
@@ -85,11 +86,11 @@ To make a local copy of the repo on your machine:
 ### To run locally
 #### requirements
 In order to run the app locally you'll need:
-1.) A MongoDB a/c
-2.) A google account
-3.) A sendgrid account
-4.) Python 3.6 or later and pip package manager (I recommend [using pipenv to create a virtual environment](https://www.youtube.com/watch?v=6Qmnh5C4Pmo) before completing the `pip install` steps below)
-4.) To declare some environment variables
+- 1.) A MongoDB a/c
+- 2.) A google account
+- 3.) A sendgrid account
+- 4.) Python 3.6 or later and pip package manager (I recommend [using pipenv to create a virtual environment](https://www.youtube.com/watch?v=6Qmnh5C4Pmo) before completing the `pip install` steps below)
+- 5.) To declare some environment variables
 
 #### ReCAPTCHA
 Go to the [ReCAPTCHA](https://www.google.com/recaptcha/intro/v3.html) site and login with your google account. Create a new `reCAPTCHA v2` with the following settings:
@@ -229,7 +230,8 @@ The stylesheet `static/style.css` passes validation using the [W3C CSS Validatio
 The JavaScript in `static/script.js` passes validation using [JSHint](https://jshint.com/) and [Esprima Syntax Validator](https://esprima.org/demo/validate.html)
 
 #### Accessibility
-The colours in this project were each revised to a deeper shade in order to pass accessability checks from WebAIM using their [Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- The colours in this project were each revised to a deeper shade in order to pass accessability checks from WebAIM using their [Contrast Checker](https://webaim.org/resources/contrastchecker/).
+- The general accessibility of the site was validated & adjusted using WebAIM's [WAVE tool](https://wave.webaim.org/).
 
 ## Bugs
 
@@ -250,13 +252,13 @@ The colours in this project were each revised to a deeper shade in order to pass
     - **FIX**: Using the 'coerce=str' placeholder in the form definition, then populating  within the Flask Views using a for loop to populate a list with values for the SelectField choices. See [this stackoverflow answer](https://stackoverflow.com/a/48236887) for more information.
 
 # Credits/Acknowledgements
-## MongoDB regex guidance from:
-    - [Regex Query in Mongo docs](https://docs.mongodb.com/manual/reference/operator/query/regex/) 
-    - [this stackoverflow question](https://stackoverflow.com/questions/3305561/how-to-query-mongodb-with-like)
-
-## reCAPTCHA implementation with guidance from:
-    - John Sobanski's [Easy ReCAPTCHA with Flask-WTF](https://john.soban.ski/add-recaptcha-to-your-flask-application.html)
-    - soumilshah1995's [YouTube demo](https://www.youtube.com/watch?v=MmHrncoIOO8)
+## Tutorials/Walkthroughs/Explanations & general guidance via:
+- [Regex Query in Mongo docs](https://docs.mongodb.com/manual/reference/operator/query/regex/) 
+- [this stackoverflow question](https://stackoverflow.com/questions/3305561/how-to-query-mongodb-with-like)
+- John Sobanski's [Easy ReCAPTCHA with Flask-WTF](https://john.soban.ski/add-recaptcha-to-your-flask-application.html)
+- soumilshah1995's [YouTube demo](https://www.youtube.com/watch?v=MmHrncoIOO8)
+- Various [Traversy Media](https://www.youtube.com/user/TechGuyWeb/) tutorials
+- Reindert-Jan Ekker's [Flask Into on Pluralsight](https://www.pluralsight.com/courses/flask-getting-started)
 
 ## Site images
 - Abstract background vector from [Creative_hat on freepik](https://www.freepik.com/free-photos-vectors/banner)

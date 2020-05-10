@@ -4,7 +4,7 @@
 
 {% block content %}
 <img src="{{ random_image }}" alt="random illustration of computer device" class="header-img">
-<h2>List of Distros & Commands</h2>
+<h1>Linux Command Generator v2</h1>
 <div class="row" id="card-container">
     {% for distro in distros %}
     {% if counter[distro.distro_name] > 0 %}

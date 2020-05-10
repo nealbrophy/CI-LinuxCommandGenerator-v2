@@ -2,7 +2,7 @@
 {% block title %}Find{% endblock %}
 {% block content %}
 <div class="bg-white"></div>
-<h2>Find Commands</h2>
+<h1>Find Commands</h1>
 <div class="container">
     <div class="find-bg s12 m6 l4"></div>
     <form action="{{ url_for('find_command') }}" method="POST">
@@ -15,7 +15,7 @@
             <br>
             <div class="input-field">
                 {{ form.search_distro(id="app_distro") }}
-                <label>Distro</label>
+                <label for="app_distro">Distro</label>
             </div>
             <br>
             {{ form.search_submit(class_="btn btn-large hoverable", value="Search") }}

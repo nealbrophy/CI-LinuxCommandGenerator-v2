@@ -2,7 +2,7 @@
 {% block title %}Delete{% endblock %}
 {% block content %}
 <div class="bg-white-lg"></div>
-<h2>Delete Command</h2>
+<h1>Delete Command</h1>
 <div class="container">
     <p><span class="sure">Are you <strong>SURE</strong> you want to delete this command?</span></p>
     <form action="{{ url_for('confirm_delete', command_id=cmd_to_delete._id) }}" method="POST">
@@ -15,7 +15,7 @@
             <br>
             <div class="input-field">
                 {{ form.form_selected_distro(id="selected_distro", class_="form-control", value=cmd_to_delete.app_distro, readonly=readonly) }}
-                <label>Distro</label>
+                <label for="selected_distro">Distro</label>
             </div>
             <br>
             <div class="input-field">
@@ -40,6 +40,7 @@
             </div>
             <br>
             <div class="recaptcha-wrapper">
+                <label for="g-recaptcha-response"></label>
                 {{ form.form_recaptcha }}
             </div>
             <br>
