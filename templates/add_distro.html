@@ -4,7 +4,7 @@
 <div class="bg-white-md"></div>
 <h2>Add Distro</h2>
 <div class="container">
-<form action="" method="POST">
+<form action="{{ url_for('add_distro') }}" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
         <div class="input-field">
@@ -13,7 +13,7 @@
         </div>
         <br>
         <div class="input-field">
-            <label for="distro_url">Distro Logo</label>
+            <label for="distro_logo">Distro Logo</label>
             {{ form.distro_logo(id="distro_logo", class_="form-control", placeholder="e.g. 'fas fa-arrows-alt'") }}
             <small id="app_url_Help" class="form-text text-muted">Look for a suitable logo in <a href="https://fontawesome.com/icons?d=gallery">Font Awesome</a>, <a href="https://material.io/resources/icons/?style=baseline">Material Icons</a>, or <a href="https://github.com/Lukas-W/font-logos">Font Logos</a></small>
         </div>

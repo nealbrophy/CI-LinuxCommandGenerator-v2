@@ -4,16 +4,16 @@
 <div class="bg-white-lg"></div>
 <h2>Edit Command</h2>
 <div class="container">
-<form action="" method="POST">
+<form action="{{ url_for('edit_command', command_id=cmd_to_update._id) }}" method="POST">
     <div class="form-group">
         {{ form.hidden_tag() }}
         <div class="input-field">
             <label for="app_name">App Name</label>
-            {{ form.form_name(id="app_name", class_="form-control", default=cmd_to_update.app_name, value=cmd_to_update.app_name) }}
+            {{ form.form_name(id="app_name", class_="form-control", value=cmd_to_update.app_name) }}
         </div>
         <br>
         <div class="input-field">
-            <select name="app_distro" id="">
+            <select name="app_distro" id="distros_select">
                 {% for distro in distros %}
                 {% if distro.distro_name == cmd_to_update.app_distro %}
                 <option value="{{ distro.distro_name }}" selected>{{ distro.distro_name }}</option>
@@ -27,23 +27,23 @@
         <br>
         <div class="input-field">
             <label for="app_url">URL for file download (if required)</label>
-            {{ form.form_url(id="app_url", class_="form-control", default=cmd_to_update.app_url, value=cmd_to_update.app_url) }}
+            {{ form.form_url(id="app_url", class_="form-control", value=cmd_to_update.app_url) }}
             <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file
                 download</small>
         </div>
         <br>
         <div class="input-field">
             <label for="app_instruction">App Instructions</label>
-            {{ form.form_instruction(id="app_instruction", class_="form-control", default=cmd_to_update.app_instruction, value=cmd_to_update.app_instruction) }}
+            {{ form.form_instruction(id="app_instruction", class_="form-control", value=cmd_to_update.app_instruction) }}
         </div>
         <br>
         <div class="input-field">
             <label for="app_command">App Command</label>
-            {{ form.form_command(id="app_command", class_="form-control", default=cmd_to_update.app_command, value=cmd_to_update.app_command) }}
+            {{ form.form_command(id="app_command", class_="form-control", value=cmd_to_update.app_command) }}
         </div>
         <br>
         <div class="recaptcha-wrapper">
-            {{ form.recaptcha }}
+            {{ form.form_recaptcha }}
         </div>
         {% if error %}
         <p class="text-danger">Please complete recaptcha {{ form.errors }}</p>

@@ -4,7 +4,7 @@
 <h2>Send My List</h2>
 
 <div class="container">
-    <form action="" method="POST">
+    <form action="{{ url_for('send_list') }}" method="POST">
         <div class="form-group">
             {{ form.hidden_tag() }}
             <div class="input-field">

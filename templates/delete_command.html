@@ -5,7 +5,7 @@
 <h2>Delete Command</h2>
 <div class="container">
     <p><span class="sure">Are you <strong>SURE</strong> you want to delete this command?</span></p>
-    <form action="" method="POST">
+    <form action="{{ url_for('confirm_delete', command_id=cmd_to_delete._id) }}" method="POST">
         <div class="form-group">
             {{ form.hidden_tag() }}
             <div class="input-field">

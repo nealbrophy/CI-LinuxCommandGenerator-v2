@@ -170,10 +170,12 @@ strong {
     color: #ff476c;
 }
 
-.card-link span {
+.card-link span,
+.card-action span {
     color: white;
 }
-.card-link span:hover {
+.card-link span:hover,
+.card-action span:hover {
     color: #ff476c;
 }
 
@@ -271,6 +273,12 @@ strong {
         height: 50%;
     }
 
+    .bg-white-md {
+        left: 10%;
+        width: 80%;
+        height: 75%;
+    }
+
     .bg-white-lg {
         left: 10%;
         width: 80%;
@@ -285,6 +293,12 @@ strong {
 
 @media only screen and (min-width: 992px) {
     .bg-white {
+        left: 24%;
+        width: 52%;
+        height: 50%;
+    }
+
+    .bg-white-md {
         left: 24%;
         width: 52%;
         height: 50%;

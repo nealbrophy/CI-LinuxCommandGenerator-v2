@@ -291,6 +291,7 @@ def add_to_list(command_id):
       return redirect(request.referrer)
   else:
     my_list[cmd_to_save['_id']] = {'id': command_id, 'app': cmd_to_save['app_name'], 'distro': cmd_to_save['app_distro'], 'url': cmd_to_save['app_url'], 'instruction': cmd_to_save['app_instruction'], 'command': cmd_to_save['app_command']}
+    flash('Command added!')
     return redirect(url_for('my_list_func'))
 
 # MY_LIST VIEW

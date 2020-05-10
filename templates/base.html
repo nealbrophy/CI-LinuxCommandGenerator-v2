@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +20,8 @@
     <title>{% block title %}{% endblock %} - Linux Command Generator</title>
     {% endblock %}
 </head>
-
 <body>
+    <!-- NAVBAR -->
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
@@ -103,17 +102,20 @@
             </div>
         </nav>
     </div>
+    <!-- MOBILE NAVBAR -->
     <ul class="sidenav" id="mobile-nav">
         <li><a href="{{ url_for('find_command') }}">Find Commands</a></li>
         <li><a href="{{ url_for('add_command') }}">Add Command</a></li>
         <li><a href="{{ url_for('add_distro') }}">Add Distro</a></li>
         <li><a href="{{ url_for('my_list_func')}}">My List</a></li>
     </ul>
+    <!-- BACKGROUND IMG -->
     <div class="bg-image"></div>
     <div class="container center-align main-container">
+        <!-- MAIN FLASK CONTENT -->
         {% block content %} {% endblock %}
-
     </div>
+    <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='script.js')}}"></script>
     <script>
@@ -125,5 +127,4 @@
     </script>
     {{ toastr.include_toastr_js() }}
 </body>
-
 </html>

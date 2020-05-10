@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<img src="{{ random_image }}" alt="header image" class="header-img">
+<img src="{{ random_image }}" alt="random illustration of computer device" class="header-img">
 <h2>List of Distros & Commands</h2>
 <div class="row" id="card-container">
     {% for distro in distros %}
@@ -29,9 +29,5 @@
                 {% for key, value in  empty_distros.items() %}
                 <span>{{ key }}</span>
                 {% endfor %}
-
-            </div>
-        </li>
-    </ul>
 </footer>
 {% endblock %}

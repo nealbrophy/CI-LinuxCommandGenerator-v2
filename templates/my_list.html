@@ -14,7 +14,7 @@
 {% if my_list %}
 <div class="row my-card-list" id="card-container">
     {% for key, value in my_list.items() %}
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l5">
         <div class="card find-cards hoverable">
             <div class="card-content white-text">
                 <a href="{{ url_for('remove_from_list', command_id=key)}}" class="remove-card right tooltipped" data-position="bottom"

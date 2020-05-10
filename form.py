@@ -42,7 +42,7 @@ class EmailForm(FlaskForm):
 
 class SimpleSearch(FlaskForm):
     search_app = StringField()
-    search_distro = SelectField('app_distro', validators=[DataRequired()], coerce=str)
+    search_distro = SelectField('app_distro', coerce=str)
     search_submit = SubmitField('Search')
 
 class AddDistroForm(FlaskForm):
