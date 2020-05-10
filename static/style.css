@@ -4,7 +4,7 @@ body {
 }
 
 nav {
-    background-color: #478eff !important;
+    background-color: #004ECC !important;
 }
 
 h2 {
@@ -24,7 +24,7 @@ strong {
 }
 
 .sidenav {
-    background-color: #478eff;
+    background-color: #004ECC;
 }
 
 .sidenav li>a {
@@ -56,7 +56,7 @@ strong {
     border-radius: 3rem;
     padding-top: 5rem;
     margin-top: -2rem;
-    border: 3px dashed #478eff;
+    border: 3px dashed #004ECC;
 }
 
 .bg-white-md {
@@ -69,7 +69,7 @@ strong {
     border-radius: 3rem;
     padding-top: 5rem;
     margin-top: -2rem;
-    border: 3px dashed #478eff;
+    border: 3px dashed #004ECC;
 }
 
 .bg-white-lg {
@@ -82,7 +82,7 @@ strong {
     border-radius: 3rem;
     padding-top: 5rem;
     margin-top: -2rem;
-    border: 3px dashed #478eff;
+    border: 3px dashed #004ECC;
 }
 
 .list-bg {
@@ -102,12 +102,16 @@ strong {
 }
 
 .divider {
-    background-color: #ff476c !important;
+    background-color: #B30021 !important;
 }
 
 .collapsible-header {
-    background-color: #ff476c;
-    color: #ffed47;
+    background-color: #B30021;
+    color: #c2af00;
+}
+
+.empty-distros {
+    background-color: #B30021;
 }
 
 .empty-distros span {
@@ -115,15 +119,16 @@ strong {
 }
 
 .collapsible-body {
-    background-color: #ff476c;
+    background-color: #B30021;
 }
 
 .careful {
-    background-color: #ffed47;
+    background-color: #c2af00;
 }
 
 .sure {
-    background-color: #ff476c;
+    background-color: #B30021;
+    color: white;
 }
 
 .results-title {
@@ -139,11 +144,11 @@ strong {
 }
 
 .btn {
-    background-color: #478eff;
+    background-color: #004ECC;
 }
 
 .btn:hover {
-    background-color: #ff476c;
+    background-color: #B30021;
 }
 
 .btn-flat {
@@ -155,11 +160,11 @@ strong {
 }
 
 .btn-cancel:hover {
-    background-color: #ff476c;
+    background-color: #B30021;
 }
 
 .card {
-    background-color: #478eff;
+    background-color: #004ECC;
 }
 
 .card-content a {
@@ -167,7 +172,7 @@ strong {
 }
 
 .card-content a:hover {
-    color: #ff476c;
+    color: #B30021;
 }
 
 .card-link span,
@@ -176,7 +181,7 @@ strong {
 }
 .card-link span:hover,
 .card-action span:hover {
-    color: #ff476c;
+    color: #B30021;
 }
 
 .material-icons {
@@ -184,7 +189,7 @@ strong {
 }
 
 .input-field label {
-    color: #478eff;
+    color: #004ECC;
 }
 
 .g-recaptcha {
@@ -196,41 +201,41 @@ strong {
 }
 
 .input-field input[type=text]:focus + label {
-    color: #478eff !important;
+    color: #004ECC !important;
 }
 #app_name:focus,
 #app_instruction:focus,
 #app_command:focus,
 #app_url:focus {
-    border-bottom: 1px solid #478eff;
-    box-shadow: 0 1px 0 0 #478eff;
+    border-bottom: 1px solid #004ECC;
+    box-shadow: 0 1px 0 0 #004ECC;
 }
 
 .input-field input[type=text]:focus {
-    border-bottom: 1px solid #478eff;
-    box-shadow: 0 1px 0 0 #478eff;
+    border-bottom: 1px solid #004ECC;
+    box-shadow: 0 1px 0 0 #004ECC;
 }
 
 .input-field input[type=text].valid {
-    border-bottom: 1px solid #478eff;
-    box-shadow: 0 1px 0 0 #478eff;
+    border-bottom: 1px solid #004ECC;
+    box-shadow: 0 1px 0 0 #004ECC;
 }
 
 .input-field input[type=text].invalid {
-    border-bottom: 1px solid #478eff;
-    box-shadow: 0 1px 0 0 #478eff;
+    border-bottom: 1px solid #004ECC;
+    box-shadow: 0 1px 0 0 #004ECC;
 }
 
 .dropdown-content li>span {
-    color: #ff476c;
+    color: #B30021;
 }
 
 ::placeholder {
-    color: #ff476c !important;
+    color: #B30021 !important;
 }
 
 .card-text strong {
-    background-color: #ffed47;
+    background-color: #c2af00;
     color: black;
 }
 
@@ -245,19 +250,19 @@ strong {
 }
 
 .back-button {
-    background-color: #ff476c;
+    background-color: #B30021;
 }
 
 .back-button:hover {
-    background-color: #478eff;
+    background-color: #004ECC;
 }
 
 .toast {
-    background-color: #ff476c;
+    background-color: #B30021;
 }
 
 .remove-card i {
-    color: #ffed47;
+    color: #c2af00;
 }
 
 @media only screen and (min-width: 400px) {

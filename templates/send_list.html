@@ -10,6 +10,7 @@
             <div class="input-field">
                 <label for="email_address">Email Address</label>
                 {{ form.email_address(id="email_address", class_="form-control", placeholder="Enter email address") }}
+                <small id="app_url_Help" class="form-text text-muted">If you don't get the email...check your SPAM folder!</small>
             </div>
             <br>
             {{ form.email_recaptcha }}

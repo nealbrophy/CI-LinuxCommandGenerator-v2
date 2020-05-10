@@ -24,6 +24,9 @@ You can view the deployed site on [Heroku](https://linux-command-generator.herok
 - MongoDB
 - Materialize.css
 - HTML, CSS, JS
+- Google Fonts
+- Font Awesome
+- Font-Logos
 
 
 ## UX
@@ -32,8 +35,8 @@ Given the intended audience & purpose of the site (*Linux enthusiasts* and *simp
 Upon first reaching the site I wanted users to be able quickly see what's available while also not overwhelming them with a page of full of commands. To achieve that I decided to present only the distros which currently have commands and to display how many commands are availble for those distros. I later decided that I wanted to at least make users aware that other distros are available but simple don't have any commands to display yet, hence the footer on the main page with a list of empty distros.
 
 ### User Stories
-As a Linux user I want a site I can use to look-up common terminal commands to install popular apps.
-As a Linux enthusiast I want to be able to add, update, and delete commands so I can contribute.
+- As a Linux user I want a site I can use to look-up common terminal commands to install popular apps.
+- As a Linux enthusiast I want to be able to add, update, and delete commands so I can contribute.
 
 ### Strategy
 The goal of the site is to be fast & easy to achieve the intended use of adding, updating, removing, emailing stored terminal commands. I wanted the layout to be simple and intuitive. Conversely, I wanted to add a little security as well to avoid malicious/spam additions, for this I decided to use recaptcha to avoid the need for an "approval" step where someone would need to view & confirm/accept pending commands before they would be added. However that is a feature I would like to add in future.
@@ -48,7 +51,7 @@ In terms of available operations, I considered "Edit Distro" and "Delete Distro"
 <img src="static/images/wireframes.png" alt="desktop-wireframe-1" width="500px">
 
 ### Surface
-For the look of the site I wanted something bright & simple. I was picturing comicbook colours and similarly "cartoonish" fonts. With comicbook colours in mind I eventually decided on a "Captain America" type Blue (#478eff) colour as the main navbar colour. Using the [sessions.edu color calculator](https://www.sessions.edu/color-calculator/) I decided upon the "triadic" colours of yellow (#ffed47) & pinkish (#ff476c) to accompany the blue (mostly to be used for highlights & hovers). In keeping with the cartoonish theme I wanted some colorful images and stumbled upon [https://illlustrations.co/](https://illlustrations.co/). Grabbing some computer-related images from there I implemented a random_images function to choose which of the selection of images to display when the main page loads.
+For the look of the site I wanted something bright & simple. I was picturing comicbook colours and similarly "cartoonish" fonts. With comicbook colours in mind I eventually decided on a "Captain America" type Blue (#478eff) colour [*this was changed to a deeper blue of #004ecc to improve accessibility*] as the main navbar colour. Using the [sessions.edu color calculator](https://www.sessions.edu/color-calculator/) I decided upon the "triadic" colours of yellow (#ffed47) [*this was changed to a deeper yellow of #c2af00 to improve accessibility*] & pinkish (#ff476c) [*this was changed to a deeper pink of #b30021 to improve accessibility*] to accompany the blue (mostly to be used for highlights & hovers). In keeping with the cartoonish theme I wanted some colorful images and stumbled upon [https://illlustrations.co/](https://illlustrations.co/). Grabbing some computer-related images from there I implemented a random_images function to choose which of the selection of images to display when the main page loads.
 
 After implementing the card layout and basic CRUD operations I found that the cards were looking a little cluttered/busy with the varying "instruction" and "command" lengths, so I used the material.css "truncate" class to abbreviate those fields and have the full content appear instead in a tooltip when hovered. 
 
@@ -225,12 +228,15 @@ The stylesheet `static/style.css` passes validation using the [W3C CSS Validatio
 #### JavaScript
 The JavaScript in `static/script.js` passes validation using [JSHint](https://jshint.com/) and [Esprima Syntax Validator](https://esprima.org/demo/validate.html)
 
+#### Accessibility
+The colours in this project were each revised to a deeper shade in order to pass accessability checks from WebAIM using their [Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
 ## Bugs
 
 ### Open Bugs
 - On certain browsers (Ephemeral) clicking the "copy command" icon will also cause the page to scroll down.
     - **CAUSE**: Unknown.
-- Flask-Toastr allows you to specify a different, local CSS file to restyle the toasts, however, doing so causes a console error.
+- Flask-Toastr allows you to specify a different, local CSS file to restyle the toasts, however, doing so causes a 404 error to appear in the console.
 
 ### Squashed Bugs
 - Delete confirmation screen would always proceed to delete regardless of whether Delete or Cancel button was selected.
@@ -244,12 +250,31 @@ The JavaScript in `static/script.js` passes validation using [JSHint](https://js
     - **FIX**: Using the 'coerce=str' placeholder in the form definition, then populating  within the Flask Views using a for loop to populate a list with values for the SelectField choices. See [this stackoverflow answer](https://stackoverflow.com/a/48236887) for more information.
 
 # Credits/Acknowledgements
-- MongoDB regex guidance from:
+## MongoDB regex guidance from:
     - [Regex Query in Mongo docs](https://docs.mongodb.com/manual/reference/operator/query/regex/) 
     - [this stackoverflow question](https://stackoverflow.com/questions/3305561/how-to-query-mongodb-with-like)
-- reCAPTCHA implementation with guidance from:
+
+## reCAPTCHA implementation with guidance from:
     - John Sobanski's [Easy ReCAPTCHA with Flask-WTF](https://john.soban.ski/add-recaptcha-to-your-flask-application.html)
     - soumilshah1995's [YouTube demo](https://www.youtube.com/watch?v=MmHrncoIOO8)
+
+## Site images
 - Abstract background vector from [Creative_hat on freepik](https://www.freepik.com/free-photos-vectors/banner)
 - illustrations by [vijay verma](https://illlustrations.co/)
-- CopyToClipboard function from my [LinuxCommandGeneratorv1.1 project](https://github.com/nealbrophy/LinuxCommandGenerator_v1.1)
+- Tux icon from [Favicon.cc](https://www.favicon.cc/?action=icon&file_id=899032)
+
+## Copy-to-Clipboard
+- CopyToClipboard function from my [LinuxCommandGeneratorv1.1 project](https://github.com/nealbrophy/LinuxCommandGenerator_v1.1) which in turn was based on [Dean Taylor's](https://stackoverflow.com/users/406712/dean-taylor) excellent answer on [StackOverflow](https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript)
+
+## Distro logos
+- from [font-logos by lukas-w](https://github.com/lukas-w/font-logos)
+
+## Wirefreams created using:
+[MockFlow](https://mockflow.com)
+
+## Developed using
+- [Visual Studio Code](https://code.visualstudio.com/) & [Code - OSS](https://github.com/microsoft/vscode/wiki/Differences-between-the-repository-and-Visual-Studio-Code)
+- [GitKraken](https://gitkraken.com/)
+- [Manjaro](https://manjaro.org/)
+- [Ubuntu](https://ubuntu.com/)
+- [Elementary OS](https://elementary.io/)
