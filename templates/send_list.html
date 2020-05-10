@@ -2,6 +2,7 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <h2>Send My List</h2>
+
 <div class="container">
     <form action="" method="POST">
         <div class="form-group">
@@ -16,7 +17,8 @@
             <p class="text-danger">Please complete recaptcha</p>
             {% endif %}
             <br>
-            {{ form.email_submit(class_="btn btn-primary")}}
+            {{ form.email_submit(class_="btn btn-primary btn-large")}}
+            <a href="{{ request.referrer }}" class="btn btn-large btn-cancel hoverable">Cancel</a>
         </div>
     </form>
 </div>

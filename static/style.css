@@ -52,19 +52,33 @@ strong {
     background-color: antiquewhite;
     z-index: -1;
     width: 90%;
-    height: 50%;
+    height: 60%;
     border-radius: 3rem;
     padding-top: 5rem;
     margin-top: -2rem;
     border: 3px dashed #478eff;
 }
+
+.bg-white-md {
+    position: absolute;
+    left: 5%;
+    background-color: antiquewhite;
+    z-index: -1;
+    width: 90%;
+    height: 75%;
+    border-radius: 3rem;
+    padding-top: 5rem;
+    margin-top: -2rem;
+    border: 3px dashed #478eff;
+}
+
 .bg-white-lg {
     position: absolute;
     left: 2%;
     background-color: antiquewhite;
     z-index: -1;
     width: 95%;
-    height: 95%;
+    height: 120%;
     border-radius: 3rem;
     padding-top: 5rem;
     margin-top: -2rem;
@@ -228,6 +242,14 @@ strong {
     display: none;
 }
 
+.back-button {
+    background-color: #ff476c;
+}
+
+.back-button:hover {
+    background-color: #478eff;
+}
+
 .toast {
     background-color: #ff476c;
 }
@@ -271,6 +293,6 @@ strong {
     .bg-white-lg {
         left: 24%;
         width: 52%;
-        height: 88%;
+        height: 93%;
     }
   }

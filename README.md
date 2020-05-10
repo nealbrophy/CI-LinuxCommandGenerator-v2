@@ -2,9 +2,13 @@
 Code Institute Milestone 3 - Data Centric Development
 
 ### Project Description/Goals
+The Linux Command Generator v2 is an interface for performing CRUD (Create, Read, Update, Delete) operations on a MongoDB database of linux terminal commands. As a user of linux and occasional distro-hopper I often need to re-install apps and wanted somewhere I could easily access terminal commands for doing so. This is an expansion/continuation of my Interactive Front End milestone Linux Command Generator v1.1 but now with the ability to easily add/update/remove commands as needed. Additionally, one of my future 'like to have' features for the Interactive Front End milestone was the ability to email a list of commands so I wanted to make sure to include that functionality in this version.
 
 ### Demo
-<!-- INSERT GIFs -->
+You can view the deployed site on [Heroku](https://linux-command-generator.herokuapp.com/)
+<img src="https://github.com/nealbrophy/CI-LinuxCommandGenerator-v2/blob/master/static/images/desktop-view.gif" alt="site demo on desktop" width="650px" align="left">
+
+<img src="https://github.com/nealbrophy/LinuxCommandGenerator_v1.1/blob/master/static/images/mobile-view.gif" alt="site demo on iphone" width="200px" align="center">
 
 ### Technologies used
 - Python
@@ -21,35 +25,43 @@ Code Institute Milestone 3 - Data Centric Development
 
 
 ## UX
-Given the intended audience & purpose of the site (Linux enthusiasts and simple storage/retrieval of terminal commands, respectively) I wanted a clean, straight-to-the-point user experience. 
+Given the intended audience & purpose of the site (*Linux enthusiasts* and *simple storage/retrieval of terminal commands*, respectively) I wanted a clean, straight-to-the-point user experience. I ultimately decided to use a card-based layout to achieve this goal and keep animations etc to a minmimum. My approach was the same when it came to the navbar, I wanted to keep the buttons to the fewest necessary to achieve the intended goals to that end certain functions (edit command, delete command) don't have their own dedicated section in the navbar but are rather reached via the main 'Find' page.
+
+Upon first reaching the site I wanted users to be able quickly see what's available while also not overwhelming them with a page of full of commands. To achieve that I decided to present only the distros which currently have commands and to display how many commands are availble for those distros. I later decided that I wanted to at least make users aware that other distros are available but simple don't have any commands to display yet, hence the footer on the main page with a list of empty distros.
 
 ### User Stories
 As a Linux user I want a site I can use to look-up common terminal commands to install popular apps.
 As a Linux enthusiast I want to be able to add, update, and delete commands so I can contribute.
 
 ### Strategy
-The Linux Command Generator v2 as the name suggest is a continuatiun/expansion of the idea from my Milestone 2 project. I wanted to take the same concept forward but add some desired features which were missing from that project (e.g. the ability to email a list of saved commands) and the ability to add, edit, delete commands as needed.
+The goal of the site is to be fast & easy to achieve the intended use of adding, updating, removing, emailing stored terminal commands. I wanted the layout to be simple and intuitive. Conversely, I wanted to add a little security as well to avoid malicious/spam additions, for this I decided to use recaptcha to avoid the need for an "approval" step where someone would need to view & confirm/accept pending commands before they would be added. However that is a feature I would like to add in future.
 
 ### Scope
-I decided at the beginning of the project that the must have features were CRUD operations, the ability to save commands to a list, the ability to email the saved list, 
+I decided at the beginning of the project that the must have features were CRUD (Create, Read, Update, Delete) operations, the ability to save commands to a list, the ability to email the saved list. When evaluating what kind of security measures to put in place I considered adding a login/sign-up option and then having the create/delete functions only available from within but detemined that ran counter to the previously decided upon objective of being simple & straight to the point.
+
+In terms of available operations, I considered "Edit Distro" and "Delete Distro" ops but again decided that if the intended goal was straight-to-the-point *COMMAND* retrieval then distro based operations were out of scope, and it was better to offer a simple "Add distro" operation for cases where a user wants to add a command but the distro in question isn't available. Since I intend to use the site myself when distro hopping and something I often find myself doing is copying & pasting commands I wanted to make this option as simple as possible, thus there is a *copy* button on all cards where a command is displayed.
 
 ### Skeleton
 #### Wireframes
-<!-- INSERT WIREFRAMES -->
+<img src="static/images/wireframes.png" alt="desktop-wireframe-1" width="500px">
 
 ### Surface
-<!-- discuss design/style/fonts/colours etc -->
+For the look of the site I wanted something bright & simple. I was picturing comicbook colours and similarly "cartoonish" fonts. With comicbook colours in mind I eventually decided on a "Captain America" type Blue (#478eff) colour as the main navbar colour. Using the [sessions.edu color calculator](https://www.sessions.edu/color-calculator/) I decided upon the "triadic" colours of yellow (#ffed47) & pinkish (#ff476c) to accompany the blue (mostly to be used for highlights & hovers). In keeping with the cartoonish theme I wanted some colorful images and stumbled upon [https://illlustrations.co/](https://illlustrations.co/). Grabbing some computer-related images from there I implemented a random_images function to choose which of the selection of images to display when the main page loads.
 
-### Must-have Features
-- CRUD functionality --DONE
-- General/basic search function i.e. search by distro name or app name & return all results --DONE
-- Advanced search function i.e. additional fields to significantly narrow results
+After implementing the card layout and basic CRUD operations I found that the cards were looking a little cluttered/busy with the varying "instruction" and "command" lengths, so I used the material.css "truncate" class to abbreviate those fields and have the full content appear instead in a tooltip when hovered. 
+
+### Features
+- Responsive navbar
+- Randomly changing header image on main page
+- Responsive card layout
+- My List section to allow users to save commands for later
+- Email My List function to allow users to email their list of saved commands
 - Simple user friendly interface
 
-### Nice-to-have Features
-- Wishlist/shopping list where users can save commands --DONE
-- Up-vote/down-vote functionality per command
+### Future Features
+- Peer-approval feature where commands added are flagged as un-approved in some way until an admin user evaluations & approves them.
 - Download/email saved commands as a shell script
+- Ability to edit or delete Distros limiting deletion to only distros which do not have any commands
 
 ## Deployment
 <!-- insert detailed step-by-step instructions WITH IMAGES for each part of proj -->

@@ -5,7 +5,7 @@
 <div class="container">
     {% if my_list %}
 
-<a href="{{ request.referrer }}" class="btn-small btn-floating left"><i class="material-icons">keyboard_backspace</i></a>
+<a href="{{ request.referrer }}" class="btn-small btn-floating left back-button"><i class="material-icons">keyboard_backspace</i></a>
 {% endif %}
 {% if my_list %}
     <a href="{{ url_for('send_list') }}" class="btn btn-info right">Email My List</a>
@@ -15,20 +15,27 @@
 <div class="row my-card-list" id="card-container">
     {% for key, value in my_list.items() %}
     <div class="col s12 m6 l4">
-        <div class="card hoverable">
-            <a href="{{ url_for('remove_from_list', command_id=key)}}" class="remove-card right"><i class="material-icons">clear</i></a>
+        <div class="card find-cards hoverable">
             <div class="card-content white-text">
-                <div class="card-body float-left">
-                    <span class="card-title">{{ value['app'].title() }} ({{ value['distro'] }})</span>
-                    <p class="card-text">
-                        <strong>Instruction:</strong><span class="truncate tooltipped" data-position="bottom" data-tooltip="{{ value['instruction'] }}"> {{ value['instruction'] }}</span>
-                        <br>
-                        <strong>Command:</strong> <span id="command_{{ value._id }}"
-                            class="command_to_copy truncate tooltipped" data-position="bottom"
-                            data-tooltip="{{ value['command'] }}"><button class="btn-flat copy_button"><i
-                                    class="far fa-copy"></i></button>
-                            {{ value['command'] }}</span></p>
-                </div>
+                <a href="{{ url_for('remove_from_list', command_id=key)}}" class="remove-card right tooltipped" data-position="bottom"
+                data-tooltip="remove from list"><i class="material-icons">clear</i></a>
+                <a href="{{ url_for('command_view', command_id=value.id) }}"><span
+                        class="card-title">{{ value['app'].title() }}</span></a>
+                <span class="card-subtitle mb-2">Distro: {{ value['distro'] }}</span>
+                <p class="card-text">
+                    <strong>Instructions:</strong><span class="truncate tooltipped" data-position="bottom"
+                        data-tooltip="{{ value['instruction'] }}"> {{ value['instruction'] }}</span>
+                    <br>
+                    <strong>Command:</strong> <span id="command_{{ value.id }}"
+                        class="command_to_copy truncate tooltipped" data-position="bottom"
+                        data-tooltip="{{ value['command'] }}"><button class="btn-flat copy_button"><i
+                                class="far fa-copy"></i></button>
+                        {{ value['command'] }}</span></p>
+            </div>
+            <div class="card-action">
+                <a class="card-link tooltipped" data-position="bottom" data-tooltip="edit command"
+                    href="{{ url_for('edit_command', command_id=value.id) }}"><span
+                        class="material-icons">create</span></a>
             </div>
         </div>
     </div>
