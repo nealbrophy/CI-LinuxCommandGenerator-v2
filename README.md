@@ -207,6 +207,9 @@ To put the app through it's paces I tried each of the CRUD operations repeatedly
 
 ## Validation
 
+#### Python
+Python was validated using VSCode's PyLint add-on and Python Language Server. At the time of final commit there were no "Problems" present.
+
 #### HTML
 All pages pass validation using the [W3C Markup Validation Service](https://validator.w3.org/)
 - distros.html
