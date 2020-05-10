@@ -180,6 +180,7 @@ strong {
 .card-action span {
     color: white;
 }
+
 .card-link span:hover,
 .card-action span:hover {
     color: #B30021;
@@ -201,9 +202,10 @@ strong {
     text-align: center;
 }
 
-.input-field input[type=text]:focus + label {
+.input-field input[type=text]:focus+label {
     color: #004ECC !important;
 }
+
 #app_name:focus,
 #app_instruction:focus,
 #app_command:focus,
@@ -244,7 +246,7 @@ strong {
     bottom: 2.7%;
 }
 
-.toast-title, 
+.toast-title,
 .toast-close-button,
 .toast-progress {
     display: none;
@@ -270,8 +272,9 @@ strong {
     .results {
         margin-top: 12rem;
     }
-    
-  }
+
+}
+
 @media only screen and (min-width: 601px) {
     .bg-white {
         left: 10%;
@@ -294,8 +297,8 @@ strong {
     .results {
         margin-top: 12rem;
     }
-    
-  }
+
+}
 
 @media only screen and (min-width: 992px) {
     .bg-white {
@@ -315,4 +318,4 @@ strong {
         width: 52%;
         height: 93%;
     }
-  }
+}

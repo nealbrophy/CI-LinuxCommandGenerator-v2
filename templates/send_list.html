@@ -2,23 +2,29 @@
 {% block title %}Add{% endblock %}
 {% block content %}
 <h1>Send My List</h1>
-
 <div class="container">
     <form action="{{ url_for('send_list') }}" method="POST">
         <div class="form-group">
             {{ form.hidden_tag() }}
             <div class="input-field">
+                <!-- ADDRESS FIELD -->
                 <label for="email_address">Email Address</label>
                 {{ form.email_address(id="email_address", class_="form-control", placeholder="Enter email address") }}
-                <small id="app_url_Help" class="form-text text-muted">If you don't get the email...check your SPAM folder!</small>
+                <!-- SPAM REMINDER -->
+                <small id="app_url_Help" class="form-text text-muted">If you don't get the email...check your SPAM
+                    folder!</small>
             </div>
             <br>
+            <!-- RECAPTCHA -->
             {{ form.email_recaptcha }}
+            <!-- WARNING for RECAPTCHA -->
             {% if error %}
             <p class="text-danger">Please complete recaptcha</p>
             {% endif %}
             <br>
+            <!-- SUBMIT -->
             {{ form.email_submit(class_="btn btn-primary btn-large")}}
+            <!-- CANCEL -->
             <a href="{{ request.referrer }}" class="btn btn-large btn-cancel hoverable">Cancel</a>
         </div>
     </form>

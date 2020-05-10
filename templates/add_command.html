@@ -4,51 +4,60 @@
 <div class="bg-white-lg"></div>
 <h1>Add Command</h1>
 <div class="container">
-<form action="{{ url_for('add_command')}}" method="POST">
-    <div class="form-group">
-        {{ form.hidden_tag() }}
-        <div class="input-field">
-            <label for="app_name">App Name</label>
-            {{ form.form_name(id="app_name", class_="form-control", placeholder="Enter app name") }}
-        </div>
-        <br>
-        <div class="input-field">
-            {{ form.form_distro(id="app_distro", class_="form-control") }}
-            <label for="app_distro">Distro</label>
-        </div>
-        <br>
-        <div class="input-field">
-            <label for="app_url">URL for file download (if required)</label>
-            {{ form.form_url(id="app_url", class_="form-control", placeholder="Enter URL for file download if needed") }}
-            <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate file
-                download</small>
-        </div>
-        <br>
-        <div class="input-field">
-            <label for="app_instruction">App Instructions</label>
-            {{ form.form_instruction(id="app_instruction", class_="form-control", value="Enter the below command in terminal") }}
-        </div>
-        <br>
-        <div class="input-field">
-            <label for="app_command">App Command</label>
-            {{ form.form_command(id="app_command", class_="form-control", placeholder="Enter terminal command") }}
-            <small id="app_command_Help" class="form-text text-muted">Most commands require root/super access...<span
-                    class="orange">BE
-                    CAREFUL</span></small>
-        </div>
-        <br>
-        <div class="recaptcha-wrapper">
-            <label for="g-recaptcha-response"></label>
-            {{ form.form_recaptcha }}
-        </div>
-        {% if error %}
+    <form action="{{ url_for('add_command')}}" method="POST">
+        <div class="form-group">
+            {{ form.hidden_tag() }}
+            <div class="input-field">
+                <!-- APP NAME -->
+                <label for="app_name">App Name</label>
+                {{ form.form_name(id="app_name", class_="form-control", placeholder="Enter app name") }}
+            </div>
+            <br>
+            <!-- DISTRO SELECT -->
+            <div class="input-field">
+                {{ form.form_distro(id="app_distro", class_="form-control") }}
+                <label for="app_distro">Distro</label>
+            </div>
+            <br>
+            <!-- DOWNLOAD URL -->
+            <div class="input-field">
+                <label for="app_url">URL for file download (if required)</label>
+                {{ form.form_url(id="app_url", class_="form-control", placeholder="Enter URL for file download if needed") }}
+                <small id="app_url_Help" class="form-text text-muted">Only needed if the command requires a separate
+                    file
+                    download</small>
+            </div>
+            <br>
+            <!-- INSTRUCTIONS -->
+            <div class="input-field">
+                <label for="app_instruction">App Instructions</label>
+                {{ form.form_instruction(id="app_instruction", class_="form-control", value="Enter the below command in terminal") }}
+            </div>
+            <br>
+            <!-- COMMAND -->
+            <div class="input-field">
+                <label for="app_command">App Command</label>
+                {{ form.form_command(id="app_command", class_="form-control", placeholder="Enter terminal command") }}
+                <small id="app_command_Help" class="form-text text-muted">Most commands require root/super
+                    access...<span class="orange">BE
+                        CAREFUL</span></small>
+            </div>
+            <br>
+            <!-- RECAPTCHA -->
+            <div class="recaptcha-wrapper">
+                <label for="g-recaptcha-response"></label>
+                {{ form.form_recaptcha }}
+            </div>
+            <!-- WARNING MSG for RECAPTCHA -->
+            {% if error %}
 
-        <p class="text-danger">Please complete recaptcha</p>
+            <p class="text-danger">Please complete recaptcha</p>
 
-        {% endif %}
-        <br>
-        {{ form.form_submit(class_="btn btn-large center hoverable")}}
-    </div>
-</form>
+            {% endif %}
+            <br>
+            <!-- SUBMIT BUTTON -->
+            {{ form.form_submit(class_="btn btn-large center hoverable")}}
+        </div>
+    </form>
 </div>
 {% endblock %}

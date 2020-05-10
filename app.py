@@ -60,6 +60,8 @@ def random_image(list):
 # ==========
 #  Flask VIEWS
 # ==========
+
+# DISTRO VIEW
 @app.route('/')
 def get_distros():
   form = SimpleSearch()
@@ -82,7 +84,7 @@ def get_distros():
       distros=mongo.db.distros.find(), 
       commands=mongo.db.commands.find())
 
-# DISTRO commands VIEW
+# distro COMMANDS VIEW
 @app.route('/distro_cmds/<distro_name>', methods=['GET', 'POST'])
 def get_distro_cmds(distro_name):
   form = SimpleSearch()
@@ -125,7 +127,7 @@ def find_command():
       return render_template('find_command.html', req_type='empty', form=form,
         distros=mongo.db.distros.find())
 
-# COMMAND VIEW
+# SINGLE-COMMAND VIEW
 @app.route('/command/<command_id>')
 def command_view(command_id):
   command = mongo.db.commands.find_one({'_id': ObjectId(command_id)})
@@ -281,7 +283,7 @@ def confirm_delete(command_id):
       return render_template('delete_command.html', error=form.errors, form=form, cmd_to_delete=cmd_to_delete, results=mongo.db.commands.find({'_id': ObjectId(command_id)}),
             distros=mongo.db.distros.find(), commands=mongo.db.commands.find())
 
-# ADD TO MY_LIST operation
+# ADD to MY_LIST operation
 @app.route('/add_to_list/<command_id>')
 def add_to_list(command_id):
   cmd_to_save = mongo.db.commands.find_one({'_id': ObjectId(command_id)})

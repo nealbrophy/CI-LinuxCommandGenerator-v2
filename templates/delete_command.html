@@ -8,16 +8,19 @@
     <form action="{{ url_for('confirm_delete', command_id=cmd_to_delete._id) }}" method="POST">
         <div class="form-group">
             {{ form.hidden_tag() }}
+            <!-- APP NAME -->
             <div class="input-field">
                 <label for="app_name">App Name</label>
                 {{ form.form_name(id="app_name", class_="form-control", value=cmd_to_delete.app_name, readonly=readonly) }}
             </div>
             <br>
+            <!-- DISTRO SELECT -->
             <div class="input-field">
                 {{ form.form_selected_distro(id="selected_distro", class_="form-control", value=cmd_to_delete.app_distro, readonly=readonly) }}
                 <label for="selected_distro">Distro</label>
             </div>
             <br>
+            <!-- DOWNLOAD URL -->
             <div class="input-field">
                 <label for="app_url">URL for file download (if required)</label>
                 {{ form.form_url(id="app_url", class_="form-control", value=cmd_to_delete.app_url, readonly=readonly) }}
@@ -26,11 +29,13 @@
                     download</small>
             </div>
             <br>
+            <!-- INSTRUCTIONS -->
             <div class="input-field">
                 <label for="app_instruction">App Instructions</label>
                 {{ form.form_instruction(id="app_instruction", class_="form-control", value=cmd_to_delete.app_instruction, readonly=readonly) }}
             </div>
             <br>
+            <!-- COMMAND -->
             <div class="input-field">
                 <label for="app_command">App Command</label>
                 {{ form.form_command(id="app_command", class_="form-control", value=cmd_to_delete.app_command, readonly=readonly) }}
@@ -39,12 +44,15 @@
                         CAREFUL</span></small>
             </div>
             <br>
+            <!-- RECAPTCHA -->
             <div class="recaptcha-wrapper">
                 <label for="g-recaptcha-response"></label>
                 {{ form.form_recaptcha }}
             </div>
             <br>
+            <!-- SUBMIT -->
             {{ form.form_submit(id="submit", class_="btn btn-large hoverable", value='Delete') }}
+            <!-- CANCEL -->
             <a href="{{ url_for('find_command') }}" class="btn btn-large btn-cancel hoverable">Cancel</a>
         </div>
     </form>

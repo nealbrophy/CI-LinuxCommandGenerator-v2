@@ -3,10 +3,12 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<!-- RANDOM HEADER IMG -->
 <img src="{{ random_image }}" alt="random illustration of computer device" class="header-img">
 <h1>Linux Command Generator v2</h1>
 <div class="row" id="card-container">
     {% for distro in distros %}
+    <!-- DISTROS with COMMANDS -->
     {% if counter[distro.distro_name] > 0 %}
     <div class="col s12 s6 m6 l3">
         <div class="card l3 hoverable">
@@ -16,7 +18,10 @@
                 <p>{{ counter[distro.distro_name] }} commands</p>
             </div>
             <div class="card-action">
-                <a class="btn-flat tooltipped" data-position="bottom" data-tooltip="view {{ distro.distro_name }} commands" href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}"><span class="material-icons">
+                <a class="btn-flat tooltipped" data-position="bottom"
+                    data-tooltip="view {{ distro.distro_name }} commands"
+                    href="{{ url_for('get_distro_cmds', distro_name=distro.distro_name) }}"><span
+                        class="material-icons">
                         search</span></a>
             </div>
         </div>
@@ -24,10 +29,12 @@
     {% endif %}
     {% endfor %}
 </div>
+<!-- EMPTY DISTROS -->
 <footer class="page-footer empty-distros">
-    <p>The following distros don't currently have any commands, please feel free to <strong><a href="{{ url_for('add_command')}}">add</a></strong> some:</p>
-                {% for key, value in  empty_distros.items() %}
-                <span>{{ key }}</span>
-                {% endfor %}
+    <p>The following distros don't currently have any commands, please feel free to <strong><a
+                href="{{ url_for('add_command')}}">add</a></strong> some:</p>
+    {% for key, value in  empty_distros.items() %}
+    <span>{{ key }}</span>
+    {% endfor %}
 </footer>
 {% endblock %}

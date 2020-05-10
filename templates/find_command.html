@@ -7,36 +7,44 @@
     <div class="find-bg s12 m6 l4"></div>
     <form action="{{ url_for('find_command') }}" method="POST">
         {{ form.hidden_tag() }}
+        <!-- APP NAME -->
         <div class="form-group">
             <div class="input-field">
                 <label for="app_name">App Name</label>
                 {{ form.search_app(id="app_name", placeholder="Enter app name to search") }}
             </div>
             <br>
+            <!-- DISTRO SELECT -->
             <div class="input-field">
                 {{ form.search_distro(id="app_distro") }}
                 <label for="app_distro">Distro</label>
             </div>
             <br>
+            <!-- SUBMIT -->
             {{ form.search_submit(class_="btn btn-large hoverable", value="Search") }}
         </div>
     </form>
 </div>
+<!-- SEARCH RESULTS -->
 {% if results %}
 <br>
 <div class="results">
     {% if find_app and find_distro %}
+    <!-- APP and DISTRO -->
     <span class="results-title">Results for "{{ find_app }}"" in {{ find_distro }}:</span>
     <div class="divider"></div>
     {% elif find_app %}
+    <!-- APP ONLY -->
     <span class="results-title">Results for "{{ find_app }}":</span>
     <div class="divider"></div>
     {% elif find_distro %}
+    <!-- DISTRO ONLY -->
     <span class="results-title">Results for {{ find_distro }}:</span>
     <div class="divider"></div>
     {% endif %}
     <div class="row results-wrapper" id="card-container">
         {% for apps in results %}
+        <!-- CARDS -->
         <div class="col s12 m6 l4">
             <div class="card find-cards hoverable">
                 <div class="card-content white-text">
@@ -47,6 +55,7 @@
                         <strong>Instructions:</strong><span class="truncate tooltipped" data-position="bottom"
                             data-tooltip="{{ apps['app_instruction'] }}"> {{ apps['app_instruction'] }}</span>
                         <br>
+                        <!-- COMMAND with COPY -->
                         <strong>Command:</strong> <span id="command_{{ apps._id }}"
                             class="command_to_copy truncate tooltipped" data-position="bottom"
                             data-tooltip="{{ apps['app_command'] }}"><button class="btn-flat copy_button"><i
@@ -54,12 +63,15 @@
                             {{ apps['app_command'] }}</span></p>
                 </div>
                 <div class="card-action">
+                    <!-- EDIT -->
                     <a class="card-link tooltipped" data-position="bottom" data-tooltip="edit command"
                         href="{{ url_for('edit_command', command_id=apps._id) }}"><span
                             class="material-icons">create</span></a>
+                    <!-- DELETE -->
                     <a class="card-link tooltipped" data-position="bottom" data-tooltip="delete command"
                         href="{{ url_for('confirm_delete', command_id=apps._id) }}"><span
                             class="material-icons">delete</span></a>
+                    <!-- ADD TO LIST -->
                     <a class="card-link tooltipped" data-position="bottom" data-tooltip="add to My List"
                         href="{{ url_for('add_to_list', command_id=apps._id) }}"><span
                             class="material-icons">bookmarks</span></a>
