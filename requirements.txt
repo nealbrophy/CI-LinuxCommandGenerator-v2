@@ -19,6 +19,6 @@ python-http-client==3.2.7
 sendgrid==6.3.0
 six==1.14.0
 toml==0.10.0
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 wrapt==1.12.1
 WTForms==2.3.1
